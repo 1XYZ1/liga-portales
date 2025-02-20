@@ -1,0 +1,126 @@
+export interface Team {
+  id: number;
+  name: string;
+  shortName: string;
+  logo: string;
+  teamPhoto: string;
+  primaryColor: string;
+  secondaryColor: string;
+  foundedYear: number;
+  stadium: string;
+  captain: string;
+  description?: string;
+  isCurrentChampion?: boolean;
+  stats?: {
+    titulos: number;
+    points?: number;
+    played?: number;
+    goalsFor?: number;
+    goalsAgainst?: number;
+  };
+}
+
+export const teams: Team[] = [
+  {
+    id: 1,
+    name: "U.A INTERNACIONAL F.C",
+    shortName: "UAI",
+    logo: "/images/teams/ua-internacional-logo.png",
+    teamPhoto: "/images/teams/ua-internacional-team.jpg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#ffffff",
+    foundedYear: 2023,
+    stadium: "Estadio Internacional",
+    captain: "Carlos Ramírez",
+    description:
+      "Equipo líder de la liga con un estilo de juego ofensivo y dinámico.",
+    stats: {
+      titulos: 2,
+    },
+  },
+  {
+    id: 2,
+    name: "COLOMBIA EXPRESS F.C",
+    shortName: "COL",
+    logo: "/images/teams/colombia-express-logo.png",
+    teamPhoto: "/images/teams/colombia-express-team.jpg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#FDE047",
+    foundedYear: 2023,
+    stadium: "Estadio Express",
+    captain: "Juan Martínez",
+    description:
+      "Un equipo que representa la velocidad y precisión del fútbol colombiano.",
+    stats: {
+      titulos: 1,
+    },
+  },
+  {
+    id: 3,
+    name: "BROSKY F.C",
+    shortName: "BRO",
+    logo: "/images/teams/brosky-logo.jpeg",
+    teamPhoto: "/images/teams/brosky-team.jpeg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#000000",
+    foundedYear: 2023,
+    stadium: "Brosky Arena",
+    captain: "Reinaldo Linarez",
+    description:
+      "Conocidos por su juego técnico y estrategia única en el campo.",
+    isCurrentChampion: true,
+    stats: {
+      titulos: 1,
+    },
+  },
+  {
+    id: 4,
+    name: "BAJO CERO F.C",
+    shortName: "BJC",
+    logo: "/images/teams/bajo-cero-logo.png",
+    teamPhoto: "/images/teams/bajo-cero-team.jpg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#ffffff",
+    foundedYear: 2023,
+    stadium: "Estadio Glacial",
+    captain: "Miguel Torres",
+    description:
+      "Un equipo que mantiene la calma bajo presión y destaca por su juego frío y calculador.",
+    stats: {
+      titulos: 0,
+    },
+  },
+  {
+    id: 5,
+    name: "SAN ALBERTO HURTADO F.C",
+    shortName: "SAH",
+    logo: "/images/teams/san-alberto-logo.png",
+    teamPhoto: "/images/teams/san-alberto-team.jpg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#ffffff",
+    foundedYear: 2023,
+    stadium: "Estadio San Alberto",
+    captain: "Roberto Sánchez",
+    description: "Equipo con una fuerte tradición y valores deportivos.",
+    stats: {
+      titulos: 0,
+    },
+  },
+  {
+    id: 6,
+    name: "PORTALES F.C",
+    shortName: "POR",
+    logo: "/images/teams/portales-logo.png",
+    teamPhoto: "/images/teams/portales-team.jpg",
+    primaryColor: "#6B21A8",
+    secondaryColor: "#ffffff",
+    foundedYear: 2023,
+    stadium: "Portales Arena",
+    captain: "Luis González",
+    description:
+      "El equipo local que representa el corazón y la pasión del barrio.",
+    stats: {
+      titulos: 0,
+    },
+  },
+];

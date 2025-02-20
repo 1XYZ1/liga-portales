@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { type Match, matches } from '../../data/matches';
+import { type Team, teams } from '../../data/teams';
+
+// Agrupar partidos por semana
+const matchesByWeek = matches.reduce((acc: Record<number, Match[]>, match: Match) => {
+  if (!acc[match.week]) {
+    acc[match.week] = [];
+  }
+  acc[match.week].push(match);
+  return acc;
+}, {});
+
+// Ordenar las semanas
+const weeks = Object.keys(matchesByWeek)
+  .map(Number)
+  .sort((a, b) => a - b);
+
+const getTeamName = (teamId: number): string => {
+  return teams.find((team: Team) => team.id === teamId)?.name || 'Equipo no encontrado';
+};
+
+const getMatchStatus = (status: Match['status']): string => {
+  switch (status) {
+    case 'finished':
+      return 'Finalizado';
+    case 'in_progress':
+      return 'En Progreso';
+    case 'scheduled':
+      return 'Programado';
+    case 'cancelled':
+      return 'Cancelado';
+    default:
+      return 'Desconocido';
+  }
+};
+---
+<Layout title="Calendario" description="Calendario completo de la liga con todos los partidos y resultados.">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-center mb-12">Calendario de la Liga</h1>
+
+    <div class="space-y-12">
+      {weeks.map((week: number) => (
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h2 class="text-2xl font-bold mb-6">Semana {week}</h2>
+          <div class="grid gap-6">
+            {matchesByWeek[week].map((match: Match) => (
+              <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                  <div class="flex-1 text-center md:text-right">
+                    <span class="font-semibold text-lg">
+                      {getTeamName(match.homeTeam)}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center space-x-4">
+                    {match.status === 'finished' ? (
+                      <div class="text-2xl font-bold">
+                        {match.homeScore} - {match.awayScore}
+                      </div>
+                    ) : (
+                      <div class="text-lg text-gray-600">VS</div>
+                    )}
+                  </div>
+
+                  <div class="flex-1 text-center md:text-left">
+                    <span class="font-semibold text-lg">
+                      {getTeamName(match.awayTeam)}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 text-center">
+                  <div>
+                    {new Date(match.date + 'T00:00:00').toLocaleDateString('es-ES', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })} - {match.time}
+                  </div>
+                  <div class="mt-1">
+                    <span class={`inline-block px-2 py-1 rounded-full text-xs ${
+                      match.status === 'finished'
+                        ? 'bg-green-100 text-green-800'
+                        : match.status === 'in_progress'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : match.status === 'scheduled'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {getMatchStatus(match.status)}
+                    </span>
+                  </div>
+                  <div class="mt-1">{match.stadium}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

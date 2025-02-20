@@ -1,14 +1,116 @@
+---
+import Navigation from '../components/Navigation';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Liga de Fútbol" } = Astro.props;
+---
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content="Liga de Fútbol" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
-	<body>
+	<body class="min-h-screen bg-gray-50">
+		<header class="bg-white shadow-sm">
+			<div class="container mx-auto px-4">
+				<div class="flex justify-between items-center h-16">
+					<div class="flex items-center">
+						<a href="/" class="flex items-center">
+							<img src="/logo.svg" alt="Logo" class="h-8 w-auto" />
+							<span class="ml-2 text-xl font-bold text-gray-900">Liga de Fútbol</span>
+						</a>
+					</div>
+					<Navigation client:load />
+				</div>
+			</div>
+		</header>
+
 		<slot />
+
+		<footer class="bg-white border-t mt-12">
+			<div class="container mx-auto px-4 py-8">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+					<div>
+						<h3 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">
+							Sobre Nosotros
+						</h3>
+						<p class="text-base text-gray-600">
+							La mejor liga de fútbol amateur, organizada con pasión y profesionalismo.
+						</p>
+					</div>
+					<div>
+						<h3 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">
+							Enlaces Rápidos
+						</h3>
+						<ul class="space-y-2">
+							<li>
+								<a href="/equipos" class="text-base text-gray-600 hover:text-gray-900">
+									Equipos
+								</a>
+							</li>
+							<li>
+								<a href="/calendario" class="text-base text-gray-600 hover:text-gray-900">
+									Calendario
+								</a>
+							</li>
+							<li>
+								<a href="/tabla" class="text-base text-gray-600 hover:text-gray-900">
+									Tabla de Posiciones
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">
+							Recursos
+						</h3>
+						<ul class="space-y-2">
+							<li>
+								<a href="/reglamento" class="text-base text-gray-600 hover:text-gray-900">
+									Reglamento
+								</a>
+							</li>
+							<li>
+								<a href="/faq" class="text-base text-gray-600 hover:text-gray-900">
+									Preguntas Frecuentes
+								</a>
+							</li>
+							<li>
+								<a href="/mercado" class="text-base text-gray-600 hover:text-gray-900">
+									Mercado de Jugadores
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">
+							Contacto
+						</h3>
+						<ul class="space-y-2">
+							<li class="text-base text-gray-600">
+								<span class="font-medium">Email:</span> info@ligafutbol.com
+							</li>
+							<li class="text-base text-gray-600">
+								<span class="font-medium">Teléfono:</span> (123) 456-7890
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mt-8 border-t border-gray-200 pt-8 text-center">
+					<p class="text-base text-gray-600">
+						&copy; {new Date().getFullYear()} Liga de Fútbol. Todos los derechos reservados.
+					</p>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>
 
