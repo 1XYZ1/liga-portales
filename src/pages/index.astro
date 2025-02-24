@@ -176,20 +176,27 @@ const sortedTeams = teams.map(team => {
 									<div class="grid grid-cols-2 gap-3 sm:gap-4">
 										<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
 											<div class="text-2xl sm:text-3xl font-bold text-white mb-1">{lastWeekScorer.goals}</div>
-											<div class="text-xs sm:text-sm text-green-100 font-medium">GOLES</div>
+											<div class="text-xs sm:text-sm text-green-100 font-medium">GOLES SEMANA</div>
 										</div>
-										{lastWeekScorer.assists > 0 && (
-											<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
-												<div class="text-2xl sm:text-3xl font-bold text-white mb-1">{lastWeekScorer.assists}</div>
-												<div class="text-xs sm:text-sm text-green-100 font-medium">ASISTENCIA{lastWeekScorer.assists > 1 ? 'S' : ''}</div>
-											</div>
-										)}
+										<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+											<div class="text-2xl sm:text-3xl font-bold text-white mb-1">6</div>
+											<div class="text-xs sm:text-sm text-green-100 font-medium">GOLES TOTALES</div>
+										</div>
 									</div>
 
 									<!-- Resultado del Partido -->
 									<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4">
-										<div class="text-base sm:text-lg font-medium text-white mb-1 sm:mb-2">Resultado Final</div>
-										<div class="text-lg sm:text-2xl text-green-100 font-bold">{lastWeekScorer.matchStats}</div>
+										<div class="text-base sm:text-lg font-medium text-white mb-3">Resultado Partido</div>
+										<div class="space-y-2">
+											<div class="flex justify-between items-center">
+												<span class="text-green-100">Colombia Express F.C</span>
+												<span class="text-xl font-bold text-white">6</span>
+											</div>
+											<div class="flex justify-between items-center">
+												<span class="text-green-100">Bajo Cero F.C</span>
+												<span class="text-xl font-bold text-white">3</span>
+											</div>
+										</div>
 									</div>
 
 									<!-- Créditos -->
