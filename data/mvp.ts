@@ -28,23 +28,11 @@ export const weeklyScorers: WeeklyScorer[] = [
     teamName: "Colombia Express F.C",
     matchId: 3,
     week: 1,
-    goals: 3,
-    assists: 1,
+    goals: 5,
+    assists: 0,
     matchStats: "Colombia Express F.C 6 - 3 Bajo Cero F.C",
     credit:
-      "Hat-trick perfecto y una asistencia, siendo figura clave en la victoria",
-    photo: "/players/camilo.jpg",
-  },
-  {
-    playerName: "Leandro",
-    teamName: "U.A Internacional F.C",
-    matchId: 5,
-    week: 2,
-    goals: 2,
-    assists: 1,
-    matchStats: "Colombia Express F.C 3 - 4 U.A Internacional F.C",
-    credit:
-      "Doblete decisivo que dio la victoria a su equipo en un partido muy disputado",
-    photo: "/players/leandro.jpg",
+      "El talentoso Camilo ha marcado 6 goles en 2 partidos, siendo el máximo goleador de la liga",
+    photo: "/images/camilo.jpeg",
   },
 ];

@@ -40,7 +40,7 @@ export const stats: LeagueStats = {
     {
       name: "Leandro",
       team: "U.A Internacional F.C",
-      goals: 6,
+      goals: 5,
     },
     {
       name: "Camilo",

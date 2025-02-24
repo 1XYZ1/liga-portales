@@ -19,13 +19,19 @@ const { title, description = "Liga de Fútbol" } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen bg-gray-50">
-		<header class="bg-white shadow-sm">
+		<header class="bg-white shadow-sm sticky top-0 z-50">
 			<div class="container mx-auto px-4">
-				<div class="flex justify-between items-center h-20">
-					<div class="flex items-center">
-						<a href="/" class="flex items-center">
-							<img src="/images/portales-logo.PNG" alt="Logo" class="h-12 w-auto" />
-							<span class="ml-3 text-2xl font-bold text-gray-900">Liga Portales</span>
+				<div class="flex justify-between items-center h-20 md:h-24">
+					<div class="flex items-center flex-shrink-0">
+						<a href="/" class="flex items-center gap-3 min-w-0">
+							<div class="w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+								<img
+									src="/images/logo-portales.jpg"
+									alt="Logo"
+									class="w-full h-full object-contain"
+								/>
+							</div>
+							<span class="text-xl md:text-3xl font-bold text-gray-900 truncate">Liga Portales</span>
 						</a>
 					</div>
 					<Navigation client:load />
