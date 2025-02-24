@@ -1,6 +1,7 @@
 ---
 import type { Match, Team } from '../../data/types';
 import { standings, getSortedStandings } from '../../data/standings';
+import { matches } from '../../data/matches';
 
 interface Props {
   lastMatches: Match[];
@@ -12,6 +13,10 @@ interface Props {
 
 const { lastMatches, nextMatches, sortedTeams, getTeamById, getTeamName } = Astro.props;
 
+// Obtener los números de semana para los enlaces
+const lastWeekNumber = Math.max(...matches.filter(match => match.status === 'finished').map(match => match.week));
+const nextWeekNumber = Math.min(...matches.filter(match => match.status === 'scheduled').map(match => match.week));
+
 // Obtener la tabla ordenada usando la función de standings
 const sortedStandings = getSortedStandings(standings);
 ---
@@ -22,7 +27,14 @@ const sortedStandings = getSortedStandings(standings);
       <!-- Últimos Resultados -->
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="bg-blue-600 px-4 py-4">
-          <h2 class="text-xl font-bold text-white">Últimos Resultados</h2>
+          <a href={`/calendario#semana-${lastWeekNumber}`} class="group">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              Últimos Resultados
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </h2>
+          </a>
         </div>
         <div class="p-2 sm:p-4">
           {lastMatches.map((match) => (
@@ -68,7 +80,14 @@ const sortedStandings = getSortedStandings(standings);
       <!-- Próximos Partidos -->
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="bg-blue-600 px-4 py-4">
-          <h2 class="text-xl font-bold text-white">Próximos Partidos</h2>
+          <a href={`/calendario#semana-${nextWeekNumber}`} class="group">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              Próximos Partidos
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </h2>
+          </a>
         </div>
         <div class="p-2 sm:p-4">
           {nextMatches.map((match) => (

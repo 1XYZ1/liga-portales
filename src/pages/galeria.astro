@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { galleryImages } from '../../data/gallery';
+import Gallery from '../components/Gallery';
+
+// Declarar el tipo Window para las funciones globales
+declare global {
+  interface Window {
+    expandImage: (imageId: number) => void;
+    closeModal: () => void;
+  }
+}
+---
+
+<Layout title="Galería - Liga de Fútbol">
+  <Gallery client:load images={galleryImages} />
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

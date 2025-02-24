@@ -2,7 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { teams, type Team } from '../../../data/teams';
 import { standings, type TeamStanding, getGoalDifference } from '../../../data/standings';
-import { matches, type Match } from '../../../data/matches';
+import { matches } from '../../../data/matches';
+import { type Match } from '../../../data/types';
 
 export function getStaticPaths() {
   return teams.map((team) => ({
@@ -35,16 +36,16 @@ const getOpponentName = (match: Match, isHome: boolean): string => {
       <img
         src={team.teamPhoto}
         alt={`Equipo ${team.name}`}
-        class="w-full h-full object-cover object-[center_15%] md:object-[center_40%]"
+        class="w-full h-full object-cover object-[center_30%] md:object-[center_40%]"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
     </div>
 
     <!-- Contenido del hero -->
-    <div class="relative container mx-auto h-full flex flex-col items-center justify-end md:justify-center text-center px-4 pb-16 md:pb-0">
-      <div class="flex flex-col items-center gap-6 md:gap-8">
-        <div class="text-white">
-          <h1 class="text-4xl md:text-6xl font-bold mb-2">{team.name}</h1>
+    <div class="relative container mx-auto h-full flex flex-col items-center justify-center px-4 py-16 md:py-0">
+      <div class="flex flex-col items-center gap-6 md:gap-8 mt-16 md:mt-0">
+        <div class="text-white text-center">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">{team.name}</h1>
           <p class="text-xl md:text-2xl text-gray-300">{team.stadium}</p>
         </div>
         {team.isCurrentChampion && (
@@ -218,17 +219,19 @@ const getOpponentName = (match: Match, isHome: boolean): string => {
                       day: 'numeric'
                     })}
                   </div>
+                  {match.time && match.endTime && (
+                    <div class="text-sm text-gray-600">
+                      {match.time} - {match.endTime} hrs
+                    </div>
+                  )}
                   <div class={`text-sm px-4 py-1.5 rounded-full font-medium ${
                     match.status === 'finished'
                       ? 'bg-green-100 text-green-800'
-                      : match.status === 'in_progress'
-                      ? 'bg-yellow-100 text-yellow-800'
                       : match.status === 'scheduled'
                       ? 'bg-blue-100 text-blue-800'
                       : 'bg-red-100 text-red-800'
                   }`}>
                     {match.status === 'finished' ? 'Finalizado' :
-                     match.status === 'in_progress' ? 'En Progreso' :
                      match.status === 'scheduled' ? 'Programado' : 'Cancelado'}
                   </div>
                 </div>

@@ -21,11 +21,11 @@ const { title, description = "Liga de Fútbol" } = Astro.props;
 	<body class="min-h-screen bg-gray-50">
 		<header class="bg-white shadow-sm">
 			<div class="container mx-auto px-4">
-				<div class="flex justify-between items-center h-16">
+				<div class="flex justify-between items-center h-20">
 					<div class="flex items-center">
 						<a href="/" class="flex items-center">
-							<img src="/logo.svg" alt="Logo" class="h-8 w-auto" />
-							<span class="ml-2 text-xl font-bold text-gray-900">Liga Portales</span>
+							<img src="/images/portales-logo.PNG" alt="Logo" class="h-12 w-auto" />
+							<span class="ml-3 text-2xl font-bold text-gray-900">Liga Portales</span>
 						</a>
 					</div>
 					<Navigation client:load />
@@ -83,11 +83,7 @@ const { title, description = "Liga de Fútbol" } = Astro.props;
 									Preguntas Frecuentes
 								</a>
 							</li>
-							<li>
-								<a href="/mercado" class="text-base text-gray-600 hover:text-gray-900">
-									Mercado de Jugadores
-								</a>
-							</li>
+
 						</ul>
 					</div>
 					<div>

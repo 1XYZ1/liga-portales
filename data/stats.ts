@@ -3,9 +3,10 @@ interface Player {
   team: string;
 }
 
-interface TopScorer extends Player {
+interface TopScorer {
+  name: string;
+  team: string;
   goals: number;
-  assists: number;
 }
 
 interface TeamStats {
@@ -31,10 +32,51 @@ interface LeagueStats {
 
 export const stats: LeagueStats = {
   topScorers: [
-    { name: "Carlos Vela", team: "Los Ángeles FC", goals: 15, assists: 8 },
-    { name: "Robert Lewandowski", team: "Barcelona", goals: 13, assists: 5 },
-    { name: "Karim Benzema", team: "Real Madrid", goals: 12, assists: 7 },
-    { name: "Erling Haaland", team: "Manchester City", goals: 11, assists: 4 },
+    {
+      name: "Yosmar",
+      team: "U.A Internacional F.C",
+      goals: 6,
+    },
+    {
+      name: "Leandro",
+      team: "U.A Internacional F.C",
+      goals: 6,
+    },
+    {
+      name: "Camilo",
+      team: "Colombia Express F.C",
+      goals: 6,
+    },
+    {
+      name: "Beto",
+      team: "Portales F.C",
+      goals: 4,
+    },
+    {
+      name: "Geremy",
+      team: "San Alberto Hurtado F.C",
+      goals: 4,
+    },
+    {
+      name: "Andrés Martínez",
+      team: "Bajo Cero F.C",
+      goals: 4,
+    },
+    {
+      name: "Luis",
+      team: "Brosky F.C",
+      goals: 3,
+    },
+    {
+      name: "Jesús David",
+      team: "Bajo Cero F.C",
+      goals: 3,
+    },
+    {
+      name: "Luciano",
+      team: "Bajo Cero F.C",
+      goals: 1,
+    },
   ],
   teamStats: [
     {

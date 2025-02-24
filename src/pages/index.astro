@@ -2,28 +2,36 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import MatchesSection from '../components/MatchesSection.astro';
+import HighlightsGallery from '../components/HighlightsGallery';
 import { stats } from '../../data/stats';
 import { sponsors } from '../../data/sponsors';
-import { type Match, matches } from '../../data/matches';
+import { matches } from '../../data/matches';
+import { type Match } from '../../data/types';
 import { type Team, teams } from '../../data/teams';
+import { weeklyScorers } from '../../data/mvp';
 
 // Obtener los mejores goleadores
-const topScorers = stats.topScorers.slice(0, 3);
+const topScorers = stats.topScorers.slice(0, 6);
+
+// Obtener el goleador de la última semana
+const lastWeekScorer = weeklyScorers[weeklyScorers.length - 1];
 
 // Obtener los patrocinadores principales
 const mainSponsors = sponsors.filter(s => s.tier === 'platinum' || s.tier === 'gold');
 
-// Obtener los últimos 2 partidos jugados
+// Obtener los últimos 3 partidos jugados de la última semana
+const lastWeekNumber = Math.max(...matches.filter(match => match.status === 'finished').map(match => match.week));
 const lastMatches = matches
-  .filter(match => match.status === 'finished')
+  .filter(match => match.status === 'finished' && match.week === lastWeekNumber)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 2);
+  .slice(0, 3);
 
-// Obtener los próximos 2 partidos
+// Obtener los próximos 3 partidos de la siguiente semana
+const nextWeekNumber = Math.min(...matches.filter(match => match.status === 'scheduled').map(match => match.week));
 const nextMatches = matches
-  .filter(match => match.status === 'scheduled')
+  .filter(match => match.status === 'scheduled' && match.week === nextWeekNumber)
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  .slice(0, 2);
+  .slice(0, 3);
 
 // Función para obtener equipo por ID
 const getTeamById = (teamId: number): Team | undefined => {
@@ -101,60 +109,198 @@ const sortedTeams = teams.map(team => {
 
 		<!-- Secciones Preview -->
 		<div class="container mx-auto px-4 py-16">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-				<!-- Estadísticas -->
-				<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-					<div class="p-6 flex-1">
-						<h2 class="text-2xl font-bold text-gray-900 mb-4">Goleadores</h2>
-						<div class="space-y-4">
-							{topScorers.map((scorer, index) => (
-								<div class="flex items-center justify-between">
-									<div class="flex items-center">
-										<span class="text-2xl font-bold text-blue-600 mr-4">#{index + 1}</span>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+				<!-- Goleadores -->
+				<div class="bg-white rounded-lg shadow-md overflow-hidden">
+					<div class="bg-blue-600 px-6 py-4">
+						<h2 class="text-2xl font-bold text-white">Goleadores</h2>
+					</div>
+					<div class="p-4">
+						<div class="space-y-2">
+							{topScorers.slice(0, 6).map((scorer, index) => (
+								<div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-all">
+									<div class="flex items-center gap-3">
+										<div class={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm ${
+											index < 3 ? 'bg-yellow-400 text-yellow-900' : 'bg-blue-100 text-blue-800'
+										}`}>
+											#{index + 1}
+										</div>
 										<div>
-											<p class="font-medium">{scorer.name}</p>
-											<p class="text-sm text-gray-500">{scorer.team}</p>
+											<p class="font-bold text-gray-900">{scorer.name}</p>
+											<p class="text-xs text-gray-600">{scorer.team}</p>
 										</div>
 									</div>
-									<div class="text-lg font-semibold">{scorer.goals} goles</div>
+									<div class="flex items-center gap-1">
+										<span class="text-xl font-bold text-blue-600">{scorer.goals}</span>
+										<span class="text-xs text-gray-500">goles</span>
+									</div>
 								</div>
 							))}
 						</div>
-					</div>
-					<div class="p-4 bg-gray-50 border-t border-gray-100">
-						<a
-							href="/estadisticas"
-							class="inline-block w-full text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-						>
-							Ver todas las estadísticas
-						</a>
+						<div class="mt-4 text-center">
+							<a href="/estadisticas" class="text-sm text-blue-600 hover:text-blue-800">
+								Ver tabla completa →
+							</a>
+						</div>
 					</div>
 				</div>
 
-				<!-- Patrocinadores -->
-				<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-					<div class="p-6 flex-1">
-						<h2 class="text-2xl font-bold text-gray-900 mb-4">Patrocinadores</h2>
-						<div class="grid grid-cols-2 gap-4">
-							{mainSponsors.map((sponsor) => (
-								<div class="text-center">
-									<img
-										src={sponsor.logo}
-										alt={sponsor.name}
-										class="h-20 w-auto mx-auto mb-2 grayscale hover:grayscale-0 transition-all"
-									/>
-									<p class="text-sm font-medium">{sponsor.name}</p>
-								</div>
-							))}
+				<!-- Goleador de la Semana -->
+				<div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-xl overflow-hidden flex flex-col">
+					<div class="px-4 sm:px-6 py-4 flex items-center justify-between">
+						<div class="flex items-center gap-2">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+							</svg>
+							<h2 class="text-xl sm:text-2xl font-bold text-white">Goleador de la Semana</h2>
+						</div>
+						<div class="bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+							<span class="text-white text-xs sm:text-sm font-medium">Semana {lastWeekScorer.week}</span>
 						</div>
 					</div>
-					<div class="p-4 bg-gray-50 border-t border-gray-100">
-						<a
-							href="/patrocinadores"
-							class="inline-block w-full text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-						>
-							Ver todos los patrocinadores
-						</a>
+
+					<div class="relative flex-1">
+						<!-- Imagen de fondo con gradiente -->
+						<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+
+						<div class="relative px-4 sm:px-8 pt-6 sm:pt-8 pb-6">
+							<div class="grid md:grid-cols-[1fr_auto] gap-6 md:gap-8 items-start">
+								<!-- Información del Jugador -->
+								<div class="space-y-4 sm:space-y-6">
+									<div>
+										<h3 class="text-2xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">{lastWeekScorer.playerName}</h3>
+										<p class="text-lg sm:text-xl text-green-100">{lastWeekScorer.teamName}</p>
+									</div>
+
+									<!-- Estadísticas -->
+									<div class="grid grid-cols-2 gap-3 sm:gap-4">
+										<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+											<div class="text-2xl sm:text-3xl font-bold text-white mb-1">{lastWeekScorer.goals}</div>
+											<div class="text-xs sm:text-sm text-green-100 font-medium">GOLES</div>
+										</div>
+										{lastWeekScorer.assists > 0 && (
+											<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+												<div class="text-2xl sm:text-3xl font-bold text-white mb-1">{lastWeekScorer.assists}</div>
+												<div class="text-xs sm:text-sm text-green-100 font-medium">ASISTENCIA{lastWeekScorer.assists > 1 ? 'S' : ''}</div>
+											</div>
+										)}
+									</div>
+
+									<!-- Resultado del Partido -->
+									<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4">
+										<div class="text-base sm:text-lg font-medium text-white mb-1 sm:mb-2">Resultado Final</div>
+										<div class="text-lg sm:text-2xl text-green-100 font-bold">{lastWeekScorer.matchStats}</div>
+									</div>
+
+									<!-- Créditos -->
+									<blockquote class="relative mt-4 sm:mt-6">
+										<svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-6 h-12 w-12 sm:h-16 sm:w-16 text-white/10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+											<path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+										</svg>
+										<p class="relative text-base sm:text-xl text-green-100 italic leading-relaxed pl-6 sm:pl-8">
+											"{lastWeekScorer.credit}"
+										</p>
+									</blockquote>
+								</div>
+
+								<!-- Foto del Jugador -->
+								<div class="relative mx-auto md:mx-0">
+									<div class="w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-4 ring-white/20 shadow-2xl">
+										<img
+											src={lastWeekScorer.photo || '/default-player.png'}
+											alt={lastWeekScorer.playerName}
+											class="w-full h-full object-cover"
+										/>
+									</div>
+									<div class="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center font-bold text-xl sm:text-2xl shadow-lg">
+										#{lastWeekScorer.week}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Galería de Mejores Momentos -->
+			<div class="mb-8">
+				<HighlightsGallery client:load />
+			</div>
+
+			<!-- Patrocinador Principal -->
+			<div class="bg-white rounded-lg shadow-md overflow-hidden">
+				<div class="bg-purple-600 px-6 py-4">
+					<h2 class="text-2xl font-bold text-white">Patrocinador Principal</h2>
+				</div>
+				<div class="p-8">
+					<div class="grid md:grid-cols-2 gap-8 items-center">
+						<div class="text-center md:text-left space-y-6">
+							<div>
+								<h3 class="text-3xl font-bold text-purple-800 mb-3">{mainSponsors[0].name}</h3>
+								<p class="text-gray-600 text-lg">{mainSponsors[0].description}</p>
+							</div>
+							<div class="space-y-4">
+								<div class="flex flex-col gap-3">
+									<div class="flex items-center gap-2 text-purple-700">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+											<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+										</svg>
+										<span>+56 9 3722 9564 </span>
+									</div>
+									<div class="flex items-center gap-2 text-purple-700">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+											<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+											<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+										</svg>
+										<span>miloysusamigosspa@gmail.com </span>
+									</div>
+								</div>
+								<div class="flex gap-4 justify-center md:justify-start">
+									<a
+										href="https://wa.me/56937229564"
+										target="_blank"
+										class="text-purple-600 hover:text-purple-800 transition-colors"
+										title="Contactar por WhatsApp"
+									>
+										<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+										</svg>
+									</a>
+									<a
+										href="https://www.instagram.com/miloysusamigoscl"
+										target="_blank"
+										class="text-purple-600 hover:text-purple-800 transition-colors"
+										title="Seguir en Instagram"
+									>
+										<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.259-.012 3.668-.069 4.948-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+							<div class="flex flex-wrap gap-3 justify-center md:justify-start">
+								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Cuidado Profesional</span>
+								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Todas las Razas</span>
+								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Peluquería Canina</span>
+								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Baño y Corte</span>
+							</div>
+						</div>
+						<div class="relative">
+							<div class="w-48 h-48 sm:w-64 sm:h-64 mx-auto bg-purple-100 rounded-full p-6 sm:p-8 shadow-lg flex items-center justify-center">
+								<div class="w-full h-full relative">
+									<img
+										src={mainSponsors[0].logo}
+										alt={mainSponsors[0].name}
+										class="w-full h-full object-contain absolute inset-0"
+									/>
+								</div>
+							</div>
+							<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+								<svg class="w-full h-full text-purple-200" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+								</svg>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

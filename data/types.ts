@@ -25,13 +25,14 @@ export interface Team {
 
 export interface Match {
   id: number;
-  date: string;
-  time: string;
   homeTeam: number;
   awayTeam: number;
   homeScore?: number;
   awayScore?: number;
-  status: "scheduled" | "in_progress" | "finished" | "cancelled";
-  week: number;
+  date: string;
+  time?: string;
+  endTime?: string;
   stadium: string;
+  week: number;
+  status: "scheduled" | "finished" | "cancelled";
 }
