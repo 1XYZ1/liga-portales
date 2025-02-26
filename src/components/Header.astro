@@ -11,65 +11,16 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="bg-liga-primary text-white shadow-lg">
-  <div class="container mx-auto px-4">
-    <div class="flex justify-between items-center h-16">
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-14">
       <div class="flex items-center">
-        <a href="/" class="flex items-center space-x-2">
-          <img src="/logo.png" alt="Liga Portales" class="h-8 w-8">
-          <span class="text-xl font-bold">Liga Portales</span>
+        <a href="/" class="flex items-center">
+          <img src="/logo.png" alt="Logo" class="h-8 w-auto" />
+          <span class="ml-2 text-lg font-semibold text-gray-900">Liga Portales</span>
         </a>
       </div>
-
-      <nav class="hidden md:flex space-x-4">
-        {navItems.map(item => (
-          <a
-            href={item.href}
-            class:list={[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              currentPath === item.href
-                ? 'bg-liga-secondary text-white'
-                : 'text-gray-300 hover:bg-liga-secondary hover:text-white'
-            ]}
-          >
-            {item.text}
-          </a>
-        ))}
-      </nav>
-
-      <!-- Menú móvil -->
-      <div class="md:hidden">
-        <button
-          type="button"
-          class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-liga-secondary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          aria-label="Menú principal"
-        >
-          <div class="relative w-6 h-6">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </div>
-        </button>
-      </div>
-    </div>
-
-    <!-- Menú móvil expandible -->
-    <div class="mobile-menu hidden md:hidden">
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        {navItems.map(item => (
-          <a
-            href={item.href}
-            class:list={[
-              'block px-4 py-3 rounded-md text-base font-medium transition-all duration-300 transform',
-              currentPath === item.href
-                ? 'bg-liga-secondary text-white translate-x-2'
-                : 'text-gray-300 hover:bg-liga-secondary hover:text-white hover:translate-x-2'
-            ]}
-          >
-            {item.text}
-          </a>
-        ))}
-      </div>
+      <Navigation client:load />
     </div>
   </div>
 </header>

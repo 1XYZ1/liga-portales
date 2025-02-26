@@ -34,9 +34,14 @@ const navItems: NavItem[] = [
     icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
   },
   {
-    name: "Reglamento",
-    href: "/reglamento",
-    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
+    name: "Videos",
+    href: "/videos",
+    icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
+  },
+  {
+    name: "Galería",
+    href: "/galeria",
+    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
   },
   {
     name: "Patrocinadores",
@@ -44,9 +49,9 @@ const navItems: NavItem[] = [
     icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
   },
   {
-    name: "Galería",
-    href: "/galeria",
-    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
+    name: "Reglamento",
+    href: "/reglamento",
+    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
   },
   {
     name: "Contacto",
@@ -80,15 +85,17 @@ const Navigation: Component = () => {
   return (
     <>
       {/* Navegación de escritorio */}
-      <nav class="hidden lg:flex items-center space-x-4">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
-          >
-            {item.name}
-          </a>
-        ))}
+      <nav class="hidden lg:flex items-center">
+        <div class="flex items-center space-x-1">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
       </nav>
 
       {/* Botón de menú móvil */}
@@ -124,15 +131,15 @@ const Navigation: Component = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div class="h-full overflow-y-auto">
-              <div class="px-4 py-6 space-y-6">
+              <div class="px-4 py-6 space-y-1">
                 {navItems.map((item) => (
                   <a
                     href={item.href}
-                    class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
+                    class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
                     onClick={() => setIsOpen(false)}
                   >
                     <svg
-                      class="h-6 w-6 mr-3"
+                      class="h-5 w-5 mr-3"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

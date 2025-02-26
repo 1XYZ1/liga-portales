@@ -90,46 +90,56 @@ const sortedStandings = getSortedStandings(standings);
           </a>
         </div>
         <div class="p-2 sm:p-4">
-          {nextMatches.map((match) => (
-            <div class="bg-gray-50 p-3 rounded-lg mb-2 last:mb-0">
-              <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                <div class="flex items-center gap-2 min-w-0">
-                  <img
-                    src={getTeamById(match.homeTeam)?.logo}
-                    alt={getTeamName(match.homeTeam)}
-                    class="w-8 h-8 object-contain flex-shrink-0"
-                  />
-                  <a href={`/equipos/${match.homeTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block">
-                    {getTeamName(match.homeTeam)}
-                  </a>
+          {nextMatches.length > 0 ? (
+            nextMatches.map((match) => (
+              <div class="bg-gray-50 p-3 rounded-lg mb-2 last:mb-0">
+                <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                  <div class="flex items-center gap-2 min-w-0">
+                    <img
+                      src={getTeamById(match.homeTeam)?.logo}
+                      alt={getTeamName(match.homeTeam)}
+                      class="w-8 h-8 object-contain flex-shrink-0"
+                    />
+                    <a href={`/equipos/${match.homeTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block">
+                      {getTeamName(match.homeTeam)}
+                    </a>
+                  </div>
+                  <div class="flex items-center justify-center font-medium text-gray-500 px-2">
+                    VS
+                  </div>
+                  <div class="flex items-center gap-2 min-w-0 justify-end">
+                    <a href={`/equipos/${match.awayTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block text-right">
+                      {getTeamName(match.awayTeam)}
+                    </a>
+                    <img
+                      src={getTeamById(match.awayTeam)?.logo}
+                      alt={getTeamName(match.awayTeam)}
+                      class="w-8 h-8 object-contain flex-shrink-0"
+                    />
+                  </div>
                 </div>
-                <div class="flex items-center justify-center font-medium text-gray-500 px-2">
-                  VS
+                <div class="text-sm text-gray-500 mt-2 text-center">
+                  {new Date(match.date + 'T00:00:00').toLocaleDateString('es-ES', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })} - {match.time}
                 </div>
-                <div class="flex items-center gap-2 min-w-0 justify-end">
-                  <a href={`/equipos/${match.awayTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block text-right">
-                    {getTeamName(match.awayTeam)}
-                  </a>
-                  <img
-                    src={getTeamById(match.awayTeam)?.logo}
-                    alt={getTeamName(match.awayTeam)}
-                    class="w-8 h-8 object-contain flex-shrink-0"
-                  />
+                <div class="text-xs text-gray-400 text-center mt-1">
+                  {match.stadium}
                 </div>
               </div>
-              <div class="text-sm text-gray-500 mt-2 text-center">
-                {new Date(match.date + 'T00:00:00').toLocaleDateString('es-ES', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })} - {match.time}
-              </div>
-              <div class="text-xs text-gray-400 text-center mt-1">
-                {match.stadium}
-              </div>
+            ))
+          ) : (
+            <div class="flex flex-col items-center justify-center py-12 px-4 text-center">
+              <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Partidos por confirmar</h3>
+              <p class="text-gray-500">Los próximos partidos serán anunciados pronto.</p>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
