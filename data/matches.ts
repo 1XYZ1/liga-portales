@@ -149,7 +149,9 @@ export const matches: Match[] = [
     endTime: "22:40",
     stadium: "Centenario",
     week: 4,
-    status: "scheduled",
+    status: "finished",
+    homeScore: 5,
+    awayScore: 4,
   },
   {
     id: 11,
@@ -160,7 +162,9 @@ export const matches: Match[] = [
     endTime: "23:20",
     stadium: "Centenario",
     week: 4,
-    status: "scheduled",
+    status: "finished",
+    homeScore: 3,
+    awayScore: 6,
   },
   {
     id: 12,
@@ -171,7 +175,9 @@ export const matches: Match[] = [
     endTime: "00:00",
     stadium: "Centenario",
     week: 4,
-    status: "scheduled",
+    status: "finished",
+    homeScore: 6,
+    awayScore: 4,
   },
 ];
 

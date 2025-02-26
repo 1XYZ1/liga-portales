@@ -148,7 +148,7 @@ const getOpponentName = (match: Match, isHome: boolean): string => {
                 </div>
                 <div>
                   <span class="block text-sm text-gray-500">Goles a Favor</span>
-                  <span class="font-semibold">{teamStanding.goalsFor}</span>
+                  <span class="font-semibold">{team.stats?.goalsFor}</span>
                 </div>
               </li>
               <li class="flex items-center gap-3 text-gray-700">
@@ -159,7 +159,7 @@ const getOpponentName = (match: Match, isHome: boolean): string => {
                 </div>
                 <div>
                   <span class="block text-sm text-gray-500">Goles en Contra</span>
-                  <span class="font-semibold">{teamStanding.goalsAgainst}</span>
+                  <span class="font-semibold">{team.stats?.goalsAgainst}</span>
                 </div>
               </li>
               <li class="flex items-center gap-3 text-gray-700">
@@ -170,7 +170,7 @@ const getOpponentName = (match: Match, isHome: boolean): string => {
                 </div>
                 <div>
                   <span class="block text-sm text-gray-500">Diferencia de Goles</span>
-                  <span class="font-semibold">{getGoalDifference(teamStanding)}</span>
+                  <span class="font-semibold">{(team.stats?.goalsFor || 0) - (team.stats?.goalsAgainst || 0)}</span>
                 </div>
               </li>
             </ul>

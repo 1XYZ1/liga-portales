@@ -36,6 +36,8 @@ export const teams: Team[] = [
       "Equipo líder de la liga con un estilo de juego ofensivo y dinámico.",
     stats: {
       titulos: 2,
+      goalsFor: 21,
+      goalsAgainst: 15,
     },
   },
   {
@@ -53,6 +55,8 @@ export const teams: Team[] = [
       "Un equipo que representa la velocidad y precisión del fútbol colombiano.",
     stats: {
       titulos: 1,
+      goalsFor: 21,
+      goalsAgainst: 11,
     },
   },
   {
@@ -71,6 +75,8 @@ export const teams: Team[] = [
     isCurrentChampion: true,
     stats: {
       titulos: 1,
+      goalsFor: 16,
+      goalsAgainst: 10,
     },
   },
   {
@@ -88,6 +94,8 @@ export const teams: Team[] = [
       "Un equipo que mantiene la calma bajo presión y destaca por su juego frío y calculador.",
     stats: {
       titulos: 0,
+      goalsFor: 15,
+      goalsAgainst: 14,
     },
   },
   {
@@ -104,6 +112,8 @@ export const teams: Team[] = [
     description: "Equipo con una fuerte tradición y valores deportivos.",
     stats: {
       titulos: 0,
+      goalsFor: 17,
+      goalsAgainst: 27,
     },
   },
   {
@@ -121,6 +131,8 @@ export const teams: Team[] = [
       "El equipo local que representa el corazón y la pasión del barrio.",
     stats: {
       titulos: 0,
+      goalsFor: 11,
+      goalsAgainst: 24,
     },
   },
 ];
