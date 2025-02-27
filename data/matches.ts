@@ -179,6 +179,41 @@ export const matches: Match[] = [
     homeScore: 6,
     awayScore: 4,
   },
+
+  // Semana 5 - Fecha: Lunes 3 de marzo (Próximos partidos)
+  {
+    id: 13,
+    homeTeam: 5, // San Alberto Hurtado F.C
+    awayTeam: 4, // Bajo Cero F.C
+    date: "2025-03-03",
+    time: "22:00",
+    endTime: "22:40",
+    stadium: "Centenario",
+    week: 5,
+    status: "scheduled",
+  },
+  {
+    id: 14,
+    homeTeam: 2, // Colombia Express F.C
+    awayTeam: 3, // Brosky F.C
+    date: "2025-03-03",
+    time: "22:40",
+    endTime: "23:20",
+    stadium: "Centenario",
+    week: 5,
+    status: "scheduled",
+  },
+  {
+    id: 15,
+    homeTeam: 6, // Portales F.C
+    awayTeam: 1, // U.A Internacional F.C
+    date: "2025-03-03",
+    time: "23:20",
+    endTime: "00:00",
+    stadium: "Centenario",
+    week: 5,
+    status: "scheduled",
+  },
 ];
 
 // Función helper para obtener información completa del equipo

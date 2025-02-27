@@ -356,7 +356,7 @@ const Gallery: Component<GalleryProps> = (props) => {
               <img
                 src={selectedImage()?.imageUrl}
                 alt={selectedImage()?.title}
-                class="w-auto h-auto max-w-full max-h-full object-contain"
+                class="max-w-full max-h-[85vh] md:max-h-[80vh] lg:max-h-[75vh] xl:max-h-[70vh] 2xl:max-h-[65vh] object-contain rounded-lg shadow-2xl border border-blue-700"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>

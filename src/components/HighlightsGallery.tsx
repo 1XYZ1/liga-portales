@@ -279,7 +279,7 @@ const HighlightsGallery: Component = () => {
               <img
                 src={selectedImage()?.imageUrl}
                 alt={selectedImage()?.title}
-                class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border border-blue-700"
+                class="max-w-full max-h-[85vh] md:max-h-[80vh] lg:max-h-[75vh] xl:max-h-[70vh] 2xl:max-h-[65vh] xl:max-w-[1000px] object-contain rounded-lg shadow-2xl border border-blue-700"
                 onClick={(e) => e.stopPropagation()}
               />
 

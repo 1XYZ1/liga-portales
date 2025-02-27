@@ -13,7 +13,9 @@ declare global {
 ---
 
 <Layout title="Galería - Liga de Fútbol">
-  <Gallery client:load images={galleryImages} />
+  <div class="galeria-container">
+    <Gallery client:load images={galleryImages} />
+  </div>
 </Layout>
 
 <style>
@@ -22,5 +24,31 @@ declare global {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .galeria-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .galeria-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/pattern-soccer.svg');
+    background-size: 300px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .galeria-container > * {
+    position: relative;
+    z-index: 1;
   }
 </style>
