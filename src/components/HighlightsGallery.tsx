@@ -77,33 +77,49 @@ const HighlightsGallery: Component = () => {
   };
 
   return (
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-      <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
-        <h2 class="text-2xl font-bold text-white">Mejores Momentos</h2>
+    <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-xl overflow-hidden border border-blue-700">
+      <div class="bg-gradient-to-r from-blue-700 to-blue-900 px-6 py-4">
+        <h2 class="text-2xl font-bold text-white flex items-center">
+          <span class="mr-2">📸</span> Mejores Momentos
+        </h2>
       </div>
 
       {/* Filtros */}
-      <div class="p-4 border-b">
+      <div class="p-3 border-b border-blue-800">
         <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           <button
-            class={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            class={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
               selectedWeek() === "all"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-blue-700 text-white"
+                : "bg-gray-800 text-blue-200 hover:bg-gray-700 border border-blue-600"
             }`}
             onClick={() => setSelectedWeek("all")}
           >
-            Todas las semanas
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 10h16M4 14h16M4 18h16"
+              />
+            </svg>
+            Todas
           </button>
           {weeks.map((week) => (
             <button
-              class={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              class={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 selectedWeek() === week
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-blue-700 text-white"
+                  : "bg-gray-800 text-blue-200 hover:bg-gray-700 border border-blue-600"
               }`}
               onClick={() => setSelectedWeek(week)}
             >
+              <span class="w-4 h-4 flex items-center justify-center">⚽</span>
               Semana {week}
             </button>
           ))}
@@ -111,12 +127,12 @@ const HighlightsGallery: Component = () => {
       </div>
 
       {/* Galería */}
-      <div class="p-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div class="p-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           <For each={highlights()}>
             {(image) => (
               <div
-                class="relative aspect-[3/4] group cursor-pointer overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                class="relative aspect-[3/4] group cursor-pointer overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl border border-blue-600"
                 onClick={() => openModal(image)}
               >
                 <img
@@ -129,11 +145,11 @@ const HighlightsGallery: Component = () => {
                   <div class="absolute top-2 right-2 flex gap-2 transform translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
                     <button
                       onClick={(e) => shareImage(e, image)}
-                      class="p-2 bg-black/70 hover:bg-black/90 rounded-full backdrop-blur-sm transition-colors shadow-lg"
+                      class="p-2 bg-blue-900/70 hover:bg-blue-900/90 rounded-full backdrop-blur-sm transition-colors shadow-lg border border-blue-600"
                       title="Compartir"
                     >
                       <svg
-                        class="w-5 h-5 text-white drop-shadow-lg"
+                        class="w-4 h-4 text-white drop-shadow-lg"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -148,11 +164,11 @@ const HighlightsGallery: Component = () => {
                     </button>
                     <button
                       onClick={(e) => downloadImage(e, image)}
-                      class="p-2 bg-black/70 hover:bg-black/90 rounded-full backdrop-blur-sm transition-colors shadow-lg"
+                      class="p-2 bg-blue-900/70 hover:bg-blue-900/90 rounded-full backdrop-blur-sm transition-colors shadow-lg border border-blue-600"
                       title="Descargar"
                     >
                       <svg
-                        class="w-5 h-5 text-white drop-shadow-lg"
+                        class="w-4 h-4 text-white drop-shadow-lg"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -166,10 +182,13 @@ const HighlightsGallery: Component = () => {
                       </svg>
                     </button>
                   </div>
-                  <div class="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t from-black/90 to-transparent transform translate-y-0 transition-transform duration-300 z-0">
-                    <h3 class="text-lg font-bold line-clamp-1 drop-shadow-lg">
+                  <div class="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/90 to-transparent transform translate-y-0 transition-transform duration-300 z-0">
+                    <h3 class="text-base font-bold line-clamp-1 drop-shadow-lg">
                       {image.title}
                     </h3>
+                    <p class="text-xs text-blue-200 line-clamp-1">
+                      Semana {image.semana}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -179,10 +198,10 @@ const HighlightsGallery: Component = () => {
       </div>
 
       {/* Ver más */}
-      <div class="p-4 text-center border-t">
+      <div class="p-3 text-center border-t border-blue-800">
         <a
           href="/galeria"
-          class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium group"
+          class="inline-flex items-center gap-2 text-blue-300 hover:text-blue-100 transition-colors text-sm font-medium group"
           rel="prefetch"
         >
           Ver galería completa
@@ -208,18 +227,18 @@ const HighlightsGallery: Component = () => {
           {/* Contenedor de la imagen */}
           <div class="absolute inset-0 flex items-center justify-center p-4">
             <div class="relative max-w-[95vw] max-h-[95vh]">
-              {/* Botones flotantes - Ahora sobre la imagen */}
-              <div class="absolute top-0 left-0 right-0 flex items-center justify-end gap-3 z-10 p-4 bg-gradient-to-b from-black/50 to-transparent">
+              {/* Botones flotantes - Ahora en la parte superior izquierda */}
+              <div class="absolute top-0 left-0 flex items-center gap-3 z-10 p-4 bg-gradient-to-b from-black/50 to-transparent">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     selectedImage() && shareImage(e, selectedImage()!);
                   }}
-                  class="p-3 bg-black/50 hover:bg-black/80 rounded-full shadow-lg transition-all duration-200 text-white hover:scale-105"
+                  class="p-2 bg-blue-900/50 hover:bg-blue-900/80 rounded-full shadow-lg transition-all duration-200 text-white hover:scale-105 border border-blue-600"
                   title="Compartir"
                 >
                   <svg
-                    class="w-5 h-5"
+                    class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -237,11 +256,11 @@ const HighlightsGallery: Component = () => {
                     e.stopPropagation();
                     selectedImage() && downloadImage(e, selectedImage()!);
                   }}
-                  class="p-3 bg-black/50 hover:bg-black/80 rounded-full shadow-lg transition-all duration-200 text-white hover:scale-105"
+                  class="p-2 bg-blue-900/50 hover:bg-blue-900/80 rounded-full shadow-lg transition-all duration-200 text-white hover:scale-105 border border-blue-600"
                   title="Descargar"
                 >
                   <svg
-                    class="w-5 h-5"
+                    class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -254,35 +273,57 @@ const HighlightsGallery: Component = () => {
                     />
                   </svg>
                 </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    closeModal();
-                  }}
-                  class="p-3 bg-black/50 hover:bg-black/80 rounded-full shadow-lg transition-all duration-200 text-white hover:scale-105"
-                  title="Cerrar"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
               </div>
+
+              {/* Imagen */}
               <img
                 src={selectedImage()?.imageUrl}
                 alt={selectedImage()?.title}
-                class="w-auto h-auto max-w-full max-h-full object-contain"
+                class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border border-blue-700"
                 onClick={(e) => e.stopPropagation()}
               />
+
+              {/* Información de la imagen */}
+              <div
+                class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 class="text-xl font-bold text-white mb-1">
+                  {selectedImage()?.title}
+                </h3>
+                <p class="text-blue-200 text-sm line-clamp-2">
+                  {selectedImage()?.description &&
+                  selectedImage()!.description.length > 100
+                    ? selectedImage()!.description.substring(0, 100) + "..."
+                    : selectedImage()?.description}
+                </p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs border border-blue-700 flex items-center">
+                    <span class="mr-1">⚽</span> Semana{" "}
+                    {selectedImage()?.semana}
+                  </span>
+                </div>
+              </div>
+
+              {/* Botón de cerrar - Mantiene su posición en la esquina superior derecha */}
+              <button
+                onClick={closeModal}
+                class="absolute top-2 right-2 p-2 bg-blue-900/70 hover:bg-blue-900/90 rounded-full text-white z-20 border border-blue-600"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

@@ -21,15 +21,15 @@ const nextWeekNumber = Math.min(...matches.filter(match => match.status === 'sch
 const sortedStandings = getSortedStandings(standings);
 ---
 
-<section class="py-12 bg-gradient-to-b from-white to-gray-50">
+<section class="py-12 relative z-10">
   <div class="container mx-auto px-2 sm:px-4">
     <div class="grid lg:grid-cols-3 gap-4 md:gap-6">
       <!-- Últimos Resultados -->
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div class="bg-blue-600 px-4 py-4">
+      <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-xl overflow-hidden border border-blue-700">
+        <div class="bg-blue-700 px-4 py-4">
           <a href={`/calendario#semana-${lastWeekNumber}`} class="group">
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
-              Últimos Resultados
+              <span class="mr-1">⚽</span> Últimos Resultados
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -38,7 +38,7 @@ const sortedStandings = getSortedStandings(standings);
         </div>
         <div class="p-2 sm:p-4">
           {lastMatches.map((match) => (
-            <div class="bg-gray-50 p-3 rounded-lg mb-2 last:mb-0">
+            <div class="bg-gray-800 bg-opacity-70 p-3 rounded-lg mb-2 last:mb-0 border border-blue-600 hover:bg-gray-700 transition-all">
               <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                 <div class="flex items-center gap-2 min-w-0">
                   <img
@@ -46,15 +46,15 @@ const sortedStandings = getSortedStandings(standings);
                     alt={getTeamName(match.homeTeam)}
                     class="w-8 h-8 object-contain flex-shrink-0"
                   />
-                  <a href={`/equipos/${match.homeTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block">
+                  <a href={`/equipos/${match.homeTeam}`} class="font-semibold text-white hover:text-blue-300 transition-colors truncate block">
                     {getTeamName(match.homeTeam)}
                   </a>
                 </div>
-                <div class="flex items-center justify-center font-bold text-xl text-blue-600 px-2 whitespace-nowrap">
+                <div class="flex items-center justify-center font-bold text-xl text-blue-300 px-2 whitespace-nowrap bg-blue-900 rounded-lg py-1 border border-blue-500">
                   {match.homeScore} - {match.awayScore}
                 </div>
                 <div class="flex items-center gap-2 min-w-0 justify-end">
-                  <a href={`/equipos/${match.awayTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block text-right">
+                  <a href={`/equipos/${match.awayTeam}`} class="font-semibold text-white hover:text-blue-300 transition-colors truncate block text-right">
                     {getTeamName(match.awayTeam)}
                   </a>
                   <img
@@ -64,7 +64,7 @@ const sortedStandings = getSortedStandings(standings);
                   />
                 </div>
               </div>
-              <div class="text-sm text-gray-500 mt-2 text-center">
+              <div class="text-sm text-blue-200 mt-2 text-center">
                 {new Date(match.date).toLocaleDateString('es-ES', {
                   weekday: 'long',
                   year: 'numeric',
@@ -78,11 +78,11 @@ const sortedStandings = getSortedStandings(standings);
       </div>
 
       <!-- Próximos Partidos -->
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div class="bg-blue-600 px-4 py-4">
+      <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-xl overflow-hidden border border-blue-700">
+        <div class="bg-blue-700 px-4 py-4">
           <a href={`/calendario#semana-${nextWeekNumber}`} class="group">
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
-              Próximos Partidos
+              <span class="mr-1">🏆</span> Próximos Partidos
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -92,7 +92,7 @@ const sortedStandings = getSortedStandings(standings);
         <div class="p-2 sm:p-4">
           {nextMatches.length > 0 ? (
             nextMatches.map((match) => (
-              <div class="bg-gray-50 p-3 rounded-lg mb-2 last:mb-0">
+              <div class="bg-gray-800 bg-opacity-70 p-3 rounded-lg mb-2 last:mb-0 border border-blue-600 hover:bg-gray-700 transition-all">
                 <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                   <div class="flex items-center gap-2 min-w-0">
                     <img
@@ -100,15 +100,15 @@ const sortedStandings = getSortedStandings(standings);
                       alt={getTeamName(match.homeTeam)}
                       class="w-8 h-8 object-contain flex-shrink-0"
                     />
-                    <a href={`/equipos/${match.homeTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block">
+                    <a href={`/equipos/${match.homeTeam}`} class="font-semibold text-white hover:text-blue-300 transition-colors truncate block">
                       {getTeamName(match.homeTeam)}
                     </a>
                   </div>
-                  <div class="flex items-center justify-center font-medium text-gray-500 px-2">
+                  <div class="flex items-center justify-center font-medium text-blue-300 px-2 bg-blue-900 rounded-lg py-1 border border-blue-500">
                     VS
                   </div>
                   <div class="flex items-center gap-2 min-w-0 justify-end">
-                    <a href={`/equipos/${match.awayTeam}`} class="font-semibold hover:text-blue-600 transition-colors truncate block text-right">
+                    <a href={`/equipos/${match.awayTeam}`} class="font-semibold text-white hover:text-blue-300 transition-colors truncate block text-right">
                       {getTeamName(match.awayTeam)}
                     </a>
                     <img
@@ -118,7 +118,7 @@ const sortedStandings = getSortedStandings(standings);
                     />
                   </div>
                 </div>
-                <div class="text-sm text-gray-500 mt-2 text-center">
+                <div class="text-sm text-blue-200 mt-2 text-center">
                   {new Date(match.date + 'T00:00:00').toLocaleDateString('es-ES', {
                     weekday: 'long',
                     year: 'numeric',
@@ -126,45 +126,50 @@ const sortedStandings = getSortedStandings(standings);
                     day: 'numeric'
                   })} - {match.time}
                 </div>
-                <div class="text-xs text-gray-400 text-center mt-1">
+                <div class="text-xs text-blue-300 text-center mt-1 flex items-center justify-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                  </svg>
                   {match.stadium}
                 </div>
               </div>
             ))
           ) : (
-            <div class="flex flex-col items-center justify-center py-12 px-4 text-center">
-              <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="flex flex-col items-center justify-center py-12 px-4 text-center bg-gray-800 bg-opacity-70 rounded-lg">
+              <svg class="w-16 h-16 text-blue-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Partidos por confirmar</h3>
-              <p class="text-gray-500">Los próximos partidos serán anunciados pronto.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Partidos por confirmar</h3>
+              <p class="text-blue-200">Los próximos partidos serán anunciados pronto.</p>
             </div>
           )}
         </div>
       </div>
 
       <!-- Tabla del Torneo -->
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div class="bg-blue-600 px-4 py-4">
-          <h2 class="text-xl font-bold text-white">Tabla de posiciones</h2>
+      <div class="bg-gray-900 bg-opacity-80 rounded-xl shadow-xl overflow-hidden border border-blue-700">
+        <div class="bg-blue-700 px-4 py-4">
+          <h2 class="text-xl font-bold text-white flex items-center">
+            <span class="mr-1">🥇</span> Tabla de posiciones
+          </h2>
         </div>
         <div class="p-2 sm:p-4">
           <table class="w-full">
             <thead>
-              <tr class="bg-gray-50">
-                <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase">Pos</th>
-                <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase">Equipo</th>
-                <th class="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase">PTS</th>
+              <tr class="bg-gray-800 text-blue-200">
+                <th class="px-2 py-2 text-left text-xs font-medium uppercase">Pos</th>
+                <th class="px-2 py-2 text-left text-xs font-medium uppercase">Equipo</th>
+                <th class="px-2 py-2 text-center text-xs font-medium uppercase">PTS</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-700">
               {sortedStandings.map((standing, index) => {
                 const team = getTeamById(standing.teamId)!;
                 return (
-                  <tr class="hover:bg-gray-50 transition-colors duration-200">
+                  <tr class="hover:bg-gray-800 transition-colors duration-200">
                     <td class="px-2 py-2 whitespace-nowrap w-12">
                       <span class={`inline-flex items-center justify-center w-6 h-6 rounded-full text-sm font-semibold ${
-                        index < 3 ? 'bg-blue-100 text-blue-800' : 'text-gray-600'
+                        index < 3 ? 'bg-yellow-400 text-yellow-900' : 'bg-blue-900 text-blue-100'
                       }`}>
                         {index + 1}
                       </span>
@@ -172,12 +177,12 @@ const sortedStandings = getSortedStandings(standings);
                     <td class="px-2 py-2">
                       <div class="flex items-center gap-2 min-w-0">
                         <img src={team.logo} alt={team.name} class="w-6 h-6 object-contain flex-shrink-0" />
-                        <a href={`/equipos/${team.id}`} class="font-medium text-gray-900 hover:text-blue-600 transition-colors truncate block">
+                        <a href={`/equipos/${team.id}`} class="font-medium text-white hover:text-blue-300 transition-colors truncate block">
                           {team.name}
                         </a>
                       </div>
                     </td>
-                    <td class="px-2 py-2 text-center font-semibold text-gray-900 w-12">
+                    <td class="px-2 py-2 text-center font-semibold text-blue-300 w-12">
                       {standing.points}
                     </td>
                   </tr>
@@ -188,7 +193,7 @@ const sortedStandings = getSortedStandings(standings);
           <div class="mt-3 text-center">
             <a
               href="/tabla"
-              class="inline-block text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+              class="inline-block text-blue-300 hover:text-blue-100 text-sm font-medium transition-colors"
             >
               Ver tabla completa →
             </a>

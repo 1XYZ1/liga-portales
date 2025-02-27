@@ -90,7 +90,7 @@ const Navigation: Component = () => {
           {navItems.map((item) => (
             <a
               href={item.href}
-              class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+              class="px-3 py-1.5 rounded-md text-sm font-medium text-blue-100 hover:text-white hover:bg-blue-700/50 transition-colors duration-200 relative z-10"
             >
               {item.name}
             </a>
@@ -100,7 +100,7 @@ const Navigation: Component = () => {
 
       {/* Botón de menú móvil */}
       <button
-        class="lg:hidden menu-button p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+        class="lg:hidden menu-button p-2 rounded-md text-blue-100 hover:text-white hover:bg-blue-700/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-300 relative z-10"
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen(!isOpen());
@@ -125,7 +125,7 @@ const Navigation: Component = () => {
       <Show when={isOpen()}>
         <div class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-in-out">
           <div
-            class={`mobile-menu fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+            class={`mobile-menu fixed inset-y-0 right-0 max-w-xs w-full bg-gradient-to-b from-blue-900 to-blue-800 shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
               isOpen() ? "translate-x-0" : "translate-x-full"
             }`}
             onClick={(e) => e.stopPropagation()}
@@ -135,11 +135,11 @@ const Navigation: Component = () => {
                 {navItems.map((item) => (
                   <a
                     href={item.href}
-                    class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
+                    class="flex items-center px-4 py-2 text-blue-100 hover:bg-blue-700/50 hover:text-white rounded-md transition-colors duration-200"
                     onClick={() => setIsOpen(false)}
                   >
                     <svg
-                      class="h-5 w-5 mr-3"
+                      class="h-5 w-5 mr-3 text-blue-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

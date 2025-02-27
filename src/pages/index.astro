@@ -96,49 +96,54 @@ const sortedTeams = teams.map(team => {
 
 ---
 <Layout title="Liga de Fútbol">
-	<main>
+	<main class="main-container">
 		<Hero />
 
-		<MatchesSection
-			lastMatches={lastMatches}
-			nextMatches={nextMatches}
-			sortedTeams={sortedTeams}
-			getTeamById={getTeamById}
-			getTeamName={getTeamName}
-		/>
+		<!-- Sección de partidos con espaciado uniforme -->
+		<div class="py-6">
+			<MatchesSection
+				lastMatches={lastMatches}
+				nextMatches={nextMatches}
+				sortedTeams={sortedTeams}
+				getTeamById={getTeamById}
+				getTeamName={getTeamName}
+			/>
+		</div>
 
-		<!-- Secciones Preview -->
-		<div class="container mx-auto px-4 py-16">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+		<!-- Secciones Preview con espaciado uniforme -->
+		<div class="container mx-auto px-4 py-12 relative z-10">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 				<!-- Goleadores -->
-				<div class="bg-white rounded-lg shadow-md overflow-hidden">
-					<div class="bg-blue-600 px-6 py-4">
-						<h2 class="text-2xl font-bold text-white">Goleadores</h2>
+				<div class="bg-gray-900 bg-opacity-80 rounded-lg shadow-xl overflow-hidden border border-blue-700">
+					<div class="bg-blue-700 px-6 py-4 relative">
+						<h2 class="text-2xl font-bold text-white flex items-center">
+							<span class="mr-2">⚽</span> Goleadores
+						</h2>
 					</div>
 					<div class="p-4">
 						<div class="space-y-2">
 							{topScorers.slice(0, 6).map((scorer, index) => (
-								<div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-all">
+								<div class="flex items-center justify-between bg-gray-800 bg-opacity-70 p-3 rounded-lg hover:bg-gray-700 transition-all border border-blue-600">
 									<div class="flex items-center gap-3">
 										<div class={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm ${
-											index < 3 ? 'bg-yellow-400 text-yellow-900' : 'bg-blue-100 text-blue-800'
+											index < 3 ? 'bg-yellow-400 text-yellow-900' : 'bg-blue-700 text-blue-100'
 										}`}>
 											#{index + 1}
 										</div>
 										<div>
-											<p class="font-bold text-gray-900">{scorer.name}</p>
-											<p class="text-xs text-gray-600">{scorer.team}</p>
+											<p class="font-bold text-white">{scorer.name}</p>
+											<p class="text-xs text-blue-200">{scorer.team}</p>
 										</div>
 									</div>
 									<div class="flex items-center gap-1">
-										<span class="text-xl font-bold text-blue-600">{scorer.goals}</span>
-										<span class="text-xs text-gray-500">goles</span>
+										<span class="text-xl font-bold text-blue-300">{scorer.goals}</span>
+										<span class="text-xs text-blue-200">goles</span>
 									</div>
 								</div>
 							))}
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/estadisticas" class="text-sm text-blue-600 hover:text-blue-800">
+							<a href="/estadisticas" class="text-sm text-blue-300 hover:text-blue-100 transition-colors">
 								Ver tabla completa →
 							</a>
 						</div>
@@ -146,7 +151,7 @@ const sortedTeams = teams.map(team => {
 				</div>
 
 				<!-- MVP de la Semana -->
-				<div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-xl overflow-hidden flex flex-col">
+				<div class="bg-gradient-to-br from-blue-900 to-blue-800 rounded-xl shadow-xl overflow-hidden flex flex-col border border-blue-600">
 					<div class="px-4 sm:px-6 py-4 flex items-center justify-between">
 						<div class="flex items-center gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
@@ -169,27 +174,27 @@ const sortedTeams = teams.map(team => {
 								<div class="space-y-4 sm:space-y-6">
 									<div>
 										<h3 class="text-2xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">{lastWeekScorer.playerName}</h3>
-										<p class="text-lg sm:text-xl text-green-100">{lastWeekScorer.teamName}</p>
+										<p class="text-lg sm:text-xl text-blue-200">{lastWeekScorer.teamName}</p>
 									</div>
 
 									<!-- Estadísticas -->
 									<div class="grid grid-cols-2 gap-3 sm:gap-4">
-										<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+										<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center border border-blue-500">
 											<div class="text-2xl sm:text-3xl font-bold text-white mb-1">{lastWeekScorer.goals}</div>
-											<div class="text-xs sm:text-sm text-green-100 font-medium">GOLES</div>
+											<div class="text-xs sm:text-sm text-blue-200 font-medium">GOLES</div>
 										</div>
 									</div>
 
 									<!-- Resultado del Partido -->
-									<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4">
+									<div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-blue-500">
 										<div class="text-base sm:text-lg font-medium text-white mb-3">Resultado Partido</div>
 										<div class="space-y-2">
 											<div class="flex justify-between items-center">
-												<span class="text-green-100">{homeTeam?.name}</span>
+												<span class="text-blue-200">{homeTeam?.name}</span>
 												<span class="text-xl font-bold text-white">{matchDetails?.homeScore}</span>
 											</div>
 											<div class="flex justify-between items-center">
-												<span class="text-green-100">{awayTeam?.name}</span>
+												<span class="text-blue-200">{awayTeam?.name}</span>
 												<span class="text-xl font-bold text-white">{matchDetails?.awayScore}</span>
 											</div>
 										</div>
@@ -200,7 +205,7 @@ const sortedTeams = teams.map(team => {
 										<svg class="absolute top-0 left-0 transform -translate-x-4 -translate-y-6 h-12 w-12 sm:h-16 sm:w-16 text-white/10" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
 											<path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
 										</svg>
-										<p class="relative text-base sm:text-xl text-green-100 italic leading-relaxed pl-6 sm:pl-8">
+										<p class="relative text-base sm:text-xl text-blue-200 italic leading-relaxed pl-6 sm:pl-8">
 											"{lastWeekScorer.credit}"
 										</p>
 									</blockquote>
@@ -208,7 +213,7 @@ const sortedTeams = teams.map(team => {
 
 								<!-- Foto del Jugador -->
 								<div class="relative mx-auto md:mx-0">
-									<div class="w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-4 ring-white/20 shadow-2xl">
+									<div class="w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden ring-4 ring-blue-500/30 shadow-2xl">
 										<img
 											src={lastWeekScorer.photo || '/default-player.png'}
 											alt={lastWeekScorer.playerName}
@@ -226,31 +231,33 @@ const sortedTeams = teams.map(team => {
 			</div>
 
 			<!-- Galería de Mejores Momentos -->
-			<div class="mb-8">
+			<div class="mb-12">
 				<HighlightsGallery client:load />
 			</div>
 
 			<!-- Patrocinador Principal -->
-			<div class="bg-white rounded-lg shadow-md overflow-hidden">
-				<div class="bg-purple-600 px-6 py-4">
-					<h2 class="text-2xl font-bold text-white">Patrocinador Principal</h2>
+			<div class="bg-gray-900 bg-opacity-80 rounded-lg shadow-xl overflow-hidden border border-blue-700">
+				<div class="bg-blue-800 px-6 py-4">
+					<h2 class="text-2xl font-bold text-white flex items-center">
+						<span class="mr-2">🏆</span> Patrocinador Principal
+					</h2>
 				</div>
 				<div class="p-8">
 					<div class="grid md:grid-cols-2 gap-8 items-center">
 						<div class="text-center md:text-left space-y-6">
 							<div>
-								<h3 class="text-3xl font-bold text-purple-800 mb-3">{mainSponsors[0].name}</h3>
-								<p class="text-gray-600 text-lg">{mainSponsors[0].description}</p>
+								<h3 class="text-3xl font-bold text-blue-300 mb-3">{mainSponsors[0].name}</h3>
+								<p class="text-blue-100 text-lg">{mainSponsors[0].description}</p>
 							</div>
 							<div class="space-y-4">
 								<div class="flex flex-col gap-3">
-									<div class="flex items-center gap-2 text-purple-700">
+									<div class="flex items-center gap-2 text-blue-300">
 										<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 											<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
 										</svg>
 										<span>+56 9 3722 9564 </span>
 									</div>
-									<div class="flex items-center gap-2 text-purple-700">
+									<div class="flex items-center gap-2 text-blue-300">
 										<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 											<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
 											<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
@@ -262,7 +269,7 @@ const sortedTeams = teams.map(team => {
 									<a
 										href="https://wa.me/56937229564"
 										target="_blank"
-										class="text-purple-600 hover:text-purple-800 transition-colors"
+										class="text-blue-300 hover:text-blue-100 transition-colors"
 										title="Contactar por WhatsApp"
 									>
 										<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -272,7 +279,7 @@ const sortedTeams = teams.map(team => {
 									<a
 										href="https://www.instagram.com/miloysusamigoscl"
 										target="_blank"
-										class="text-purple-600 hover:text-purple-800 transition-colors"
+										class="text-blue-300 hover:text-blue-100 transition-colors"
 										title="Seguir en Instagram"
 									>
 										<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -282,14 +289,14 @@ const sortedTeams = teams.map(team => {
 								</div>
 							</div>
 							<div class="flex flex-wrap gap-3 justify-center md:justify-start">
-								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Cuidado Profesional</span>
-								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Todas las Razas</span>
-								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Peluquería Canina</span>
-								<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Baño y Corte</span>
+								<span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm border border-blue-700">Cuidado Profesional</span>
+								<span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm border border-blue-700">Todas las Razas</span>
+								<span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm border border-blue-700">Peluquería Canina</span>
+								<span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm border border-blue-700">Baño y Corte</span>
 							</div>
 						</div>
 						<div class="relative">
-							<div class="w-48 h-48 sm:w-64 sm:h-64 mx-auto bg-purple-100 rounded-full p-6 sm:p-8 shadow-lg flex items-center justify-center">
+							<div class="w-48 h-48 sm:w-64 sm:h-64 mx-auto bg-blue-900 rounded-full p-6 sm:p-8 shadow-lg flex items-center justify-center border border-blue-600">
 								<div class="w-full h-full relative">
 									<img
 										src={mainSponsors[0].logo}
@@ -299,7 +306,7 @@ const sortedTeams = teams.map(team => {
 								</div>
 							</div>
 							<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-								<svg class="w-full h-full text-purple-200" viewBox="0 0 24 24" fill="currentColor">
+								<svg class="w-full h-full text-blue-500" viewBox="0 0 24 24" fill="currentColor">
 									<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
 								</svg>
 							</div>
@@ -310,3 +317,25 @@ const sortedTeams = teams.map(team => {
 		</div>
 	</main>
 </Layout>
+
+<style>
+  .main-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/pattern-soccer.svg');
+    background-size: 300px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>

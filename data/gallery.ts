@@ -37,7 +37,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/3.jpeg",
     date: "2025-02-05",
     category: "jugada",
-    size: "vertical",
+    size: "normal",
     semana: 1,
   },
   {
@@ -57,7 +57,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/5.jpeg",
     date: "2025-02-05",
     category: "partido",
-    size: "normal",
+    size: "large",
     semana: 1,
   },
   {
@@ -77,7 +77,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/7.jpeg",
     date: "2025-02-05",
     category: "equipo",
-    size: "horizontal",
+    size: "vertical",
     semana: 1,
   },
   {
@@ -97,7 +97,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/9.jpeg",
     date: "2025-02-05",
     category: "jugada",
-    size: "normal",
+    size: "horizontal",
     semana: 1,
   },
   {
@@ -117,7 +117,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/11.jpeg",
     date: "2025-02-05",
     category: "celebracion",
-    size: "normal",
+    size: "horizontal",
     semana: 1,
   },
   {
@@ -137,7 +137,7 @@ export const galleryImages: GalleryImage[] = [
     imageUrl: "/images/best/1/13.jpeg",
     date: "2025-02-05",
     category: "equipo",
-    size: "large",
+    size: "normal",
     semana: 1,
   },
 ];
