@@ -194,8 +194,8 @@ export const matches: Match[] = [
   },
   {
     id: 14,
-    homeTeam: 2, // Colombia Express F.C
-    awayTeam: 3, // Brosky F.C
+    homeTeam: 6, // Portales F.C
+    awayTeam: 1, // U.A Internacional F.C
     date: "2025-03-03",
     time: "22:40",
     endTime: "23:20",
@@ -205,8 +205,8 @@ export const matches: Match[] = [
   },
   {
     id: 15,
-    homeTeam: 6, // Portales F.C
-    awayTeam: 1, // U.A Internacional F.C
+    homeTeam: 2, // Colombia Express F.C
+    awayTeam: 3, // Brosky F.C
     date: "2025-03-03",
     time: "23:20",
     endTime: "00:00",
