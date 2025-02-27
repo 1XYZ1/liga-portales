@@ -30,8 +30,8 @@ export const teams: Team[] = [
     primaryColor: "#6B21A8",
     secondaryColor: "#ffffff",
     foundedYear: 2023,
-    stadium: "Quinta Normal",
-    captain: "Leandro",
+    stadium: "San Miguel",
+    captain: "Elbert",
     description:
       "Equipo líder de la liga con un estilo de juego ofensivo y dinámico.",
     stats: {

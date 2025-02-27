@@ -12,15 +12,15 @@ interface WeeklyScorer {
 
 export const weeklyScorers: WeeklyScorer[] = [
   {
-    playerName: "Luis",
-    teamName: "Brosky F.C",
-    matchId: 12,
+    playerName: "Camilo",
+    teamName: "Colombia Express F.C",
+    matchId: 11,
     week: 4,
-    goals: 5,
+    goals: 3,
     assists: 2,
     matchStats: "Brosky F.C 6 - 4 San Alberto Hurtado F.C",
     credit:
-      "Luis ha sido la figura del partido con 5 goles y 2 asistencias, siendo el MVP de la semana",
-    photo: "/images/luis.jpeg",
+      "Camilo ha sido la figura del partido con 3 goles y 2 asistencias, siendo el MVP de la semana",
+    photo: "/images/camilo.jpeg",
   },
 ];

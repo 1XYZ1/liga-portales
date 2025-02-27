@@ -147,10 +147,10 @@ const Gallery: Component<GalleryProps> = (props) => {
               </div>
               <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                 <button
-                  class={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  class={`flex-shrink-0 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 ${
                     selectedWeek() === "all"
-                      ? "bg-blue-600 text-white ring-2 ring-blue-500 ring-offset-2 ring-offset-gray-900"
-                      : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-300 hover:text-white hover:bg-gray-800"
                   }`}
                   onClick={() => setSelectedWeek("all")}
                 >
@@ -173,10 +173,10 @@ const Gallery: Component<GalleryProps> = (props) => {
                 </button>
                 {weeks.map((week) => (
                   <button
-                    class={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    class={`flex-shrink-0 px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 ${
                       selectedWeek() === week
-                        ? "bg-blue-600 text-white ring-2 ring-blue-500 ring-offset-2 ring-offset-gray-900"
-                        : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-300 hover:text-white hover:bg-gray-800"
                     }`}
                     onClick={() => setSelectedWeek(week)}
                   >

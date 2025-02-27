@@ -9,30 +9,16 @@ const HighlightsGallery: Component = () => {
   const [isModalOpen, setIsModalOpen] = createSignal(false);
   const [selectedWeek, setSelectedWeek] = createSignal<number | "all">("all");
 
+  // Obtener las semanas directamente de la propiedad semana de las imágenes
   const weeks = Array.from(
-    new Set(
-      galleryImages.map((img) => {
-        const date = new Date(img.date);
-        return Math.ceil(
-          (date.getTime() - new Date("2025-02-05").getTime()) /
-            (7 * 24 * 60 * 60 * 1000)
-        );
-      })
-    )
+    new Set(galleryImages.map((img) => img.semana))
   ).sort((a, b) => a - b);
 
   const highlights = () => {
     const filtered =
       selectedWeek() === "all"
         ? galleryImages
-        : galleryImages.filter((img) => {
-            const date = new Date(img.date);
-            const week = Math.ceil(
-              (date.getTime() - new Date("2025-02-05").getTime()) /
-                (7 * 24 * 60 * 60 * 1000)
-            );
-            return week === selectedWeek();
-          });
+        : galleryImages.filter((img) => img.semana === selectedWeek());
     return filtered.slice(0, 4);
   };
 

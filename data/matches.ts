@@ -163,7 +163,7 @@ export const matches: Match[] = [
     stadium: "Centenario",
     week: 4,
     status: "finished",
-    homeScore: 3,
+    homeScore: 2,
     awayScore: 6,
   },
   {
