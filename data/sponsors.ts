@@ -98,4 +98,54 @@ export const sponsors: Sponsor[] = [
       "Servicio a domicilio disponible",
     ],
   },
+  {
+    name: "LethalStore",
+    logo: "/images/lethalstore.jpg",
+    description:
+      "Tu destino para ropa deportiva y accesorios de moda. Expertos en estampados personalizados al mayor y detal.",
+    longDescription:
+      "En LethalStore nos especializamos en ofrecer la mejor ropa deportiva y accesorios de moda. Nuestro catálogo incluye una amplia selección de productos como lentes, guantes y bananos. Destacamos por nuestro servicio de estampados personalizados, disponible tanto al mayor como al detal, garantizando la mejor calidad y atención a nuestros clientes.",
+    tier: "bronze",
+    contact: {
+      whatsapp: "+56975584688",
+      email: "contacto@lethalstore.cl",
+      instagram: "lethal_Store10",
+      location: {
+        address: "Por definir",
+        city: "Santiago",
+        maps: {
+          google: "",
+          waze: "",
+        },
+      },
+    },
+    services: [
+      {
+        name: "Ropa Deportiva",
+        description: "Venta de ropa deportiva al mayor y detal",
+        icon: "tshirt",
+      },
+      {
+        name: "Accesorios de Moda",
+        description: "Lentes, guantes, bananos y más accesorios",
+        icon: "accessories",
+      },
+      {
+        name: "Estampados Personalizados",
+        description: "Servicio de estampados al mayor y detal",
+        icon: "print",
+      },
+    ],
+    schedule: {
+      days: "Lunes a Sábado",
+      hours: "L-V: 10:00 - 19:00 | S: 10:00 - 15:00",
+    },
+    features: [
+      "Amplia variedad de ropa deportiva",
+      "Accesorios de moda exclusivos",
+      "Estampados personalizados de alta calidad",
+      "Ventas al mayor y detal",
+      "Atención personalizada",
+    ],
+  },
 ];
