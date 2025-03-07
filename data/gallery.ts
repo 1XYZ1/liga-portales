@@ -140,4 +140,14 @@ export const galleryImages: GalleryImage[] = [
     size: "normal",
     semana: 1,
   },
+  {
+    id: 13,
+    title: "Chencho",
+    description: "Chencho es chencho",
+    imageUrl: "/images/best/1/14.jpeg",
+    date: "2025-02-05",
+    category: "equipo",
+    size: "vertical",
+    semana: 4,
+  },
 ];

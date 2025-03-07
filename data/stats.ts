@@ -35,12 +35,12 @@ export const stats: LeagueStats = {
     {
       name: "Camilo",
       team: "Colombia Express F.C",
-      goals: 9,
+      goals: 11,
     },
     {
       name: "Yosmar",
       team: "U.A Internacional F.C",
-      goals: 8,
+      goals: 9,
     },
     {
       name: "Geremy",
@@ -50,11 +50,11 @@ export const stats: LeagueStats = {
     {
       name: "Leandro",
       team: "U.A Internacional F.C",
-      goals: 7,
+      goals: 8,
     },
     {
-      name: "Luis",
-      team: "Brosky F.C",
+      name: "Andres Rusio",
+      team: "Bajo Cero F.C",
       goals: 5,
     },
     {
