@@ -13,63 +13,63 @@ export interface TeamStanding {
 
 export const standings: TeamStanding[] = [
   {
-    teamId: 1, // COLOMBIA EXPRESS F.C
-    gamesPlayed: 5,
-    won: 4,
+    teamId: 2, // COLOMBIA EXPRESS F.C
+    gamesPlayed: 6,
+    won: 5,
     drawn: 0,
     lost: 1,
-    goalsFor: 25,
-    goalsAgainst: 12,
-    points: 12,
+    goalsFor: 29,
+    goalsAgainst: 14,
+    points: 15,
   },
   {
-    teamId: 2, // U.A INTERNACIONAL F.C
-    gamesPlayed: 5,
-    won: 3,
+    teamId: 1, // U.A INTERNACIONAL F.C
+    gamesPlayed: 6,
+    won: 4,
     drawn: 1,
     lost: 1,
-    goalsFor: 25,
-    goalsAgainst: 17,
-    points: 10,
+    goalsFor: 29,
+    goalsAgainst: 19,
+    points: 13,
   },
   {
-    teamId: 3, // BAJO CERO F.C
-    gamesPlayed: 5,
-    won: 3,
+    teamId: 4, // BAJO CERO F.C
+    gamesPlayed: 6,
+    won: 4,
     drawn: 1,
     lost: 1,
-    goalsFor: 21,
-    goalsAgainst: 15,
-    points: 10,
+    goalsFor: 27,
+    goalsAgainst: 16,
+    points: 13,
   },
   {
-    teamId: 4, // BROSKY F.C
-    gamesPlayed: 5,
+    teamId: 3, // BROSKY F.C
+    gamesPlayed: 6,
     won: 2,
     drawn: 2,
-    lost: 1,
-    goalsFor: 18,
-    goalsAgainst: 14,
+    lost: 2,
+    goalsFor: 20,
+    goalsAgainst: 18,
     points: 8,
   },
   {
     teamId: 5, // SAN ALBERTO HURTADO F.C
-    gamesPlayed: 5,
+    gamesPlayed: 6,
     won: 1,
     drawn: 0,
-    lost: 4,
-    goalsFor: 18,
-    goalsAgainst: 33,
+    lost: 5,
+    goalsFor: 19,
+    goalsAgainst: 39,
     points: 3,
   },
   {
     teamId: 6, // PORTALES F.C
-    gamesPlayed: 5,
+    gamesPlayed: 6,
     won: 0,
     drawn: 0,
-    lost: 5,
-    goalsFor: 12,
-    goalsAgainst: 28,
+    lost: 6,
+    goalsFor: 14,
+    goalsAgainst: 32,
     points: 0,
   },
 ];
