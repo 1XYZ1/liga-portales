@@ -43,19 +43,19 @@ export const stats: LeagueStats = {
       goals: 9,
     },
     {
-      name: "Geremy",
-      team: "San Alberto Hurtado F.C",
-      goals: 7,
-    },
-    {
       name: "Leandro",
       team: "U.A Internacional F.C",
       goals: 8,
     },
     {
+      name: "Geremy",
+      team: "San Alberto Hurtado F.C",
+      goals: 7,
+    },
+    {
       name: "Andres Rusio",
       team: "Bajo Cero F.C",
-      goals: 5,
+      goals: 6,
     },
     {
       name: "Pineda",

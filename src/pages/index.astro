@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import MatchesSection from '../components/MatchesSection.astro';
 import HighlightsGallery from '../components/HighlightsGallery';
+import HighlightsVideoGallery from '../components/HighlightsVideoGallery';
 import { stats } from '../../data/stats';
 import { sponsors } from '../../data/sponsors';
 import { matches, getTeamById } from '../../data/matches';
@@ -233,6 +234,7 @@ const sortedTeams = teams.map(team => {
 			<!-- Galería de Mejores Momentos -->
 			<div class="mb-12">
 				<HighlightsGallery client:load />
+				<HighlightsVideoGallery client:load />
 			</div>
 
 			<!-- Patrocinador Principal -->

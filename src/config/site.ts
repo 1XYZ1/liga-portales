@@ -15,7 +15,7 @@ export const siteConfig = {
   contact: {
     email: "miloysusamigosspa@gmail.com",
     phone: "+56 9 7558 4688",
-    address: "Las encinas 71, Estacion Central",
+    address: "Centenario 2221, Santiago",
   },
   keywords: [
     "liga de fútbol",
