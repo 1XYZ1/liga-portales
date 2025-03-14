@@ -248,7 +248,7 @@ export const matches: Match[] = [
     status: "suspended",
     homeScore: 1,
     awayScore: 4,
-    cancellationReason: "Suspendido por agresiónes",
+    cancellationReason: "Suspendido por agresión",
   },
 ];
 
