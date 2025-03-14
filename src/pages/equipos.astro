@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { type Team, teams } from '../../data/teams';
+import { type TeamStanding, standings } from '../../data/standings';
+
+const description = "Conoce todos los equipos que participan en nuestra liga portales.";
+---
+
+<Layout title="Equipos" description={description}>
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-center mb-12">Nuestros Equipos</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {teams.map((team: Team) => {
+        const teamStanding = standings.find(s => s.teamId === team.id)!;
+        return (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <!-- Header con foto del equipo -->
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <img
+                src={team.teamPhoto}
+                alt={`Equipo ${team.name}`}
+                class="w-full h-full object-cover object-center"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Logo y nombre -->
+            <div class="relative -mt-16 mb-4 flex justify-center">
+              <div class="w-32 h-32 bg-white rounded-full p-2 shadow-xl">
+                <img
+                  src={team.logo}
+                  alt={`Logo de ${team.name}`}
+                  class="w-full h-full object-contain rounded-full"
+                />
+              </div>
+            </div>
+
+            <div class="px-4 pb-4">
+              <!-- Nombre y estadio -->
+              <div class="text-center mb-4">
+                <h2 class="text-xl font-bold text-gray-900">{team.name}</h2>
+                <p class="text-sm text-gray-600">{team.stadium}</p>
+              </div>
+
+              {team.isCurrentChampion && (
+                <div class="absolute top-0 right-3 bg-yellow-400 text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                  Campeón
+                </div>
+              )}
+
+              <!-- Descripción -->
+              <p class="text-gray-600 text-sm mb-6 text-center min-h-[3rem]">{team.description}</p>
+
+              <!-- Estadísticas rápidas -->
+              <div class="grid grid-cols-3 gap-2 mb-6">
+                <div class="bg-purple-50 p-3 rounded-lg text-center">
+                  <div class="text-xl font-bold text-purple-700">{teamStanding.points}</div>
+                  <div class="text-xs text-gray-600">Puntos</div>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg text-center">
+                  <div class="text-xl font-bold text-green-700">{teamStanding.won}</div>
+                  <div class="text-xs text-gray-600">Victorias</div>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg text-center">
+                  <div class="text-xl font-bold text-blue-700">{teamStanding.drawn}</div>
+                  <div class="text-xs text-gray-600">Empates</div>
+                </div>
+              </div>
+
+              <!-- Información clave -->
+              <div class="flex items-center justify-center text-sm text-gray-600 mb-6">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                  <span>Capitán: {team.captain}</span>
+                </div>
+              </div>
+
+              <!-- Botón de acción -->
+              <a
+                href={`/equipos/${team.id}`}
+                class="block w-full text-center bg-liga-accent text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 transition-all duration-300 hover:shadow-lg text-sm"
+              >
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</Layout>

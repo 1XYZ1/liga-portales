@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoGallery from '../components/VideoGallery';
+import { galleryVideos } from '../../data/galleryVideo';
+---
+
+<Layout title="Videos - Liga Portales">
+  <VideoGallery videos={galleryVideos} client:load />
+</Layout>

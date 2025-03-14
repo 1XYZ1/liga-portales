@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlayerFilter from '../components/PlayerFilter';
+import { marketPlayers } from '../../data/market';
+---
+
+<Layout title="Mercado de Jugadores - Liga de Fútbol">
+  <main class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Mercado de Jugadores</h1>
+      <p class="text-lg text-gray-600">
+        Explora los jugadores disponibles para transferencias y préstamos.
+        Utiliza los filtros para encontrar el jugador perfecto para tu equipo.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <PlayerFilter players={marketPlayers} client:load />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  :global(.player-card) {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  :global(.player-card:hover) {
+    transform: translateY(-4px);
+  }
+</style>

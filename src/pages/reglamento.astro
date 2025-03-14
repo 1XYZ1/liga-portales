@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { rules } from '../../data/rules';
+---
+
+<Layout title="Reglamento - Liga de Fútbol">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Reglamento</h1>
+
+    <div class="space-y-8">
+      {rules.sections.map((section) => (
+        <section class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            {section.title}
+          </h2>
+          <ul class="space-y-3">
+            {section.items.map((item) => (
+              <li class="flex items-start">
+                <span class="flex-shrink-0 w-4 h-4 mt-1.5 mr-3">
+                  <svg
+                    class="w-4 h-4 text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </span>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  section {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  section:hover {
+    transform: translateY(-2px);
+  }
+</style>

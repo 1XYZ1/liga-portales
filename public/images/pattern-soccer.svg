@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fill-rule="evenodd">
+    <g fill="#ffffff" fill-opacity="0.1">
+      <!-- Hexágono central -->
+      <path d="M30 10l17.32 10v20L30 50l-17.32-10V20L30 10z"/>
+      <!-- Pentágonos -->
+      <path d="M30 0l9.51 6.91-3.63 11.16H24.12L20.49 6.91 30 0z"/>
+      <path d="M51.96 15l-9.51 6.91-11.16-3.63v-12.5l11.16-3.63L51.96 15z"/>
+      <path d="M51.96 45l-9.51-6.91 3.63-11.16h11.76l3.63 11.16L51.96 45z"/>
+      <path d="M30 60l-9.51-6.91 3.63-11.16h11.76l3.63 11.16L30 60z"/>
+      <path d="M8.04 45l9.51-6.91 11.16 3.63v12.5l-11.16 3.63L8.04 45z"/>
+    </g>
+  </g>
+</svg>

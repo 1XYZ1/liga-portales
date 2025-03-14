@@ -1,0 +1,245 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { teams, type Team } from '../../../data/teams';
+import { standings, type TeamStanding, getGoalDifference } from '../../../data/standings';
+import { matches } from '../../../data/matches';
+import { type Match } from '../../../data/types';
+
+export function getStaticPaths() {
+  return teams.map((team) => ({
+    params: { equipo: team.id.toString() },
+    props: { team },
+  }));
+}
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+const teamStanding = standings.find((s) => s.teamId === team.id)!;
+const teamMatches = matches.filter(
+  (m) => m.homeTeam === team.id || m.awayTeam === team.id
+);
+
+const getOpponentName = (match: Match, isHome: boolean): string => {
+  const opponentId = isHome ? match.awayTeam : match.homeTeam;
+  return teams.find((t) => t.id === opponentId)?.name || 'Equipo desconocido';
+};
+---
+
+<Layout title={team.name} description={`Toda la información sobre ${team.name}`}>
+  <!-- Hero Section -->
+  <div class="relative min-h-[600px] md:h-[800px] bg-liga-primary overflow-hidden">
+    <!-- Imagen de fondo con overlay -->
+    <div class="absolute inset-0">
+      <img
+        src={team.teamPhoto}
+        alt={`Equipo ${team.name}`}
+        class="w-full h-full object-cover object-[center_30%] md:object-[center_40%]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
+    </div>
+
+    <!-- Contenido del hero -->
+    <div class="relative container mx-auto h-full flex flex-col items-center justify-center px-4 py-16 md:py-0">
+      <div class="flex flex-col items-center gap-6 md:gap-8 mt-16 md:mt-0">
+        <div class="text-white text-center">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">{team.name}</h1>
+          <p class="text-xl md:text-2xl text-gray-300">{team.stadium}</p>
+        </div>
+        {team.isCurrentChampion && (
+          <div class="flex items-center gap-2 bg-yellow-400 text-black px-4 md:px-6 py-2 md:py-2.5 rounded-full shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.616a1 1 0 01.894-1.79l1.599.8L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            <span class="font-bold text-base md:text-lg">Campeón Actual</span>
+          </div>
+        )}
+      </div>
+
+      <!-- Descripción -->
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl mt-6 mb-8 md:mb-12">{team.description}</p>
+
+      <!-- Estadísticas -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 w-full max-w-4xl">
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center transform hover:scale-105 transition-transform">
+          <div class="text-3xl md:text-4xl font-bold text-white mb-1">{teamStanding.gamesPlayed}</div>
+          <div class="text-xs md:text-sm text-gray-300 font-medium">Partidos</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center transform hover:scale-105 transition-transform">
+          <div class="text-3xl md:text-4xl font-bold text-green-400 mb-1">{teamStanding.won}</div>
+          <div class="text-xs md:text-sm text-gray-300 font-medium">Victorias</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center transform hover:scale-105 transition-transform">
+          <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-1">{teamStanding.drawn}</div>
+          <div class="text-xs md:text-sm text-gray-300 font-medium">Empates</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center transform hover:scale-105 transition-transform">
+          <div class="text-3xl md:text-4xl font-bold text-red-400 mb-1">{teamStanding.lost}</div>
+          <div class="text-xs md:text-sm text-gray-300 font-medium">Derrotas</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center transform hover:scale-105 transition-transform col-span-2 md:col-span-1">
+          <div class="text-3xl md:text-4xl font-bold text-yellow-400 mb-1">{teamStanding.points}</div>
+          <div class="text-xs md:text-sm text-gray-300 font-medium">Puntos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo del equipo (reposicionado) -->
+  <div class="relative -mt-16 md:-mt-24 mb-8 md:mb-16">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-center">
+        <div class="w-32 h-32 md:w-48 md:h-48 bg-white rounded-full p-2 shadow-2xl ring-4 ring-white/50">
+          <img
+            src={team.logo}
+            alt={`Logo de ${team.name}`}
+            class="w-full h-full object-contain rounded-full"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="container mx-auto px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <!-- Información detallada -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+        <h2 class="text-3xl font-bold text-center mb-12">Información del Equipo</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Detalles Generales</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3 text-gray-700">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Año de Fundación</span>
+                  <span class="font-semibold">{team.foundedYear}</span>
+                </div>
+              </li>
+              <li class="flex items-center gap-3 text-gray-700">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Capitán del Equipo</span>
+                  <span class="font-semibold">{team.captain}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Estadísticas de Goles</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3 text-gray-700">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Goles a Favor</span>
+                  <span class="font-semibold">{team.stats?.goalsFor}</span>
+                </div>
+              </li>
+              <li class="flex items-center gap-3 text-gray-700">
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Goles en Contra</span>
+                  <span class="font-semibold">{team.stats?.goalsAgainst}</span>
+                </div>
+              </li>
+              <li class="flex items-center gap-3 text-gray-700">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Diferencia de Goles</span>
+                  <span class="font-semibold">{(team.stats?.goalsFor || 0) - (team.stats?.goalsAgainst || 0)}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historial de partidos -->
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Historial de Partidos</h2>
+        <div class="grid gap-6">
+          {teamMatches.map((match) => {
+            const isHome = match.homeTeam === team.id;
+            const opponentName = getOpponentName(match, isHome);
+            return (
+              <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                  <div class="flex-1 text-center md:text-right">
+                    <span class={`text-xl font-bold ${isHome ? 'text-purple-700' : ''}`}>
+                      {isHome ? team.name : opponentName}
+                    </span>
+                  </div>
+                  <div class="px-8">
+                    {match.status === 'finished' ? (
+                      <div class="text-3xl font-bold text-gray-900">
+                        {isHome ? match.homeScore : match.awayScore}
+                        <span class="text-gray-400 mx-2">-</span>
+                        {isHome ? match.awayScore : match.homeScore}
+                      </div>
+                    ) : (
+                      <div class="text-xl text-gray-600 font-medium bg-gray-100 px-4 py-2 rounded-lg">VS</div>
+                    )}
+                  </div>
+                  <div class="flex-1 text-center md:text-left">
+                    <span class={`text-xl font-bold ${!isHome ? 'text-purple-700' : ''}`}>
+                      {isHome ? opponentName : team.name}
+                    </span>
+                  </div>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-4 mt-6">
+                  <div class="text-sm text-gray-600">
+                    {new Date(match.date + 'T00:00:00').toLocaleDateString('es-ES', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </div>
+                  {match.time && match.endTime && (
+                    <div class="text-sm text-gray-600">
+                      {match.time} - {match.endTime} hrs
+                    </div>
+                  )}
+                  <div class={`text-sm px-4 py-1.5 rounded-full font-medium ${
+                    match.status === 'finished'
+                      ? 'bg-green-100 text-green-800'
+                      : match.status === 'scheduled'
+                      ? 'bg-blue-100 text-blue-800'
+                      : 'bg-red-100 text-red-800'
+                  }`}>
+                    {match.status === 'finished' ? 'Finalizado' :
+                     match.status === 'scheduled' ? 'Programado' : 'Cancelado'}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { stats } from '../../data/stats';
+
+// Ordenar goleadores por goles
+const sortedScorers = [...stats.topScorers].sort((a, b) => b.goals - a.goals);
+
+// Ordenar equipos por puntos
+const sortedTeams = [...stats.teamStats].sort((a, b) => {
+  if (b.points !== a.points) return b.points - a.points;
+  return (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst);
+});
+
+// Ordenar porteros por porterías a cero
+const sortedKeepers = [...stats.cleanSheets].sort((a, b) => b.cleanSheets - a.cleanSheets);
+---
+<Layout title="Estadísticas - Liga de Fútbol">
+  <main class="container mx-auto px-0 sm:px-4 py-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8 px-4 sm:px-0">Estadísticas</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
+      <!-- Tabla de Goleadores -->
+      <div class="bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="px-4 sm:px-6 py-4 bg-gray-50 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Tabla de Goleadores</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pos</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jugador</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Equipo</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Goles</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {sortedScorers.map((player, index) => (
+                <tr class={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm font-medium text-gray-900">{player.name}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-500">{player.team}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{player.goals}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabla de Equipos -->
+      <div class="bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="px-4 sm:px-6 py-4 bg-gray-50 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Clasificación</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pos</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Equipo</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PJ</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PTS</th>
+                <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DG</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {sortedTeams.map((team, index) => (
+                <tr class={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-500">{index + 1}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm font-medium text-gray-900">{team.name}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-500">{team.played}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{team.points}</td>
+                  <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-500">{team.goalsFor - team.goalsAgainst}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Porterías a Cero -->
+      <!-- <div class="bg-white rounded-lg shadow-md overflow-hidden lg:col-span-2">
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Porterías a Cero</h2>
+        </div>
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {sortedKeepers.map((keeper, index) => (
+            <div class="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
+              <div>
+                <p class="font-medium text-gray-900">{keeper.name}</p>
+                <p class="text-sm text-gray-500">{keeper.team}</p>
+              </div>
+              <div class="text-2xl font-bold text-blue-600">{keeper.cleanSheets}</div>
+            </div>
+          ))}
+        </div>
+      </div> -->
+    </div>
+  </main>
+</Layout>
