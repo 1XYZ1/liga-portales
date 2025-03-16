@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import ChampionSection from "../components/ChampionSection.astro";
 import MatchesSection from "../components/MatchesSection.astro";
 import WeeklyMVP from "../components/WeeklyMVP.astro";
 import HighlightsGallery from "../components/HighlightsGallery";
@@ -119,6 +120,8 @@ const sortedTeams = teams
 <Layout title="Liga de Fútbol">
   <main class="main-container">
     <Hero />
+
+    <ChampionSection />
 
     <!-- Sección de partidos con espaciado uniforme -->
     <div class="py-6">

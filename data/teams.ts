@@ -75,8 +75,8 @@ export const teams: Team[] = [
     isCurrentChampion: true,
     stats: {
       titulos: 1,
-      goalsFor: 16,
-      goalsAgainst: 10,
+      goalsFor: 22,
+      goalsAgainst: 16,
     },
   },
   {

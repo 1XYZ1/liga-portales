@@ -1,0 +1,177 @@
+---
+import { teams } from "../../data/teams"; // Obtener el equipo campeón (Brosky)
+import { standings } from "../../data/standings"; // Importar standings para obtener datos adicionales
+
+// Obtener el equipo campeón (Brosky)
+const championTeam = teams.find((team) => team.id === 3);
+// Obtener los datos de standings del equipo campeón
+const championStanding = standings.find((s) => s.teamId === 3);
+---
+
+<section
+  class="py-16 relative overflow-hidden bg-gradient-to-b from-blue-900 via-blue-950 to-blue-900"
+>
+  <!-- Overlay de textura sutil -->
+  <div class="absolute inset-0 bg-[url('/pattern.svg')] opacity-5"></div>
+
+  <!-- Efectos de luz dorada -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-0 w-full h-full bg-amber-400/5"></div>
+    <div
+      class="absolute top-1/3 left-1/4 w-72 h-72 rounded-full bg-amber-400/20 blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-1/3 right-1/4 w-72 h-72 rounded-full bg-amber-400/20 blur-3xl"
+    >
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Encabezado -->
+    <header class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-3 text-white">
+        <span
+          class="bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 bg-clip-text text-transparent"
+        >
+          CAMPEÓN DEL TORNEO
+        </span>
+      </h2>
+      <p class="text-blue-200 text-lg max-w-2xl mx-auto">
+        Reconociendo la excelencia y el espíritu deportivo del mejor equipo de
+        la temporada
+      </p>
+    </header>
+
+    <!-- Tarjeta principal del campeón -->
+    <div
+      class="max-w-4xl mx-auto bg-blue-900/50 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl border border-amber-500/20"
+    >
+      <!-- Banner dorado -->
+      <div
+        class="h-3 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400"
+      >
+      </div>
+
+      <div class="p-6 md:p-8">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <!-- Lado izquierdo: Logo e información básica -->
+          <div class="flex-shrink-0 text-center md:text-left">
+            <div class="relative mb-4 md:mb-0">
+              <!-- Círculo dorado detrás del logo -->
+              <div
+                class="absolute inset-0 rounded-full bg-gradient-to-br from-amber-300 to-yellow-600 blur-md transform scale-110"
+              >
+              </div>
+
+              <!-- Logo del equipo -->
+              <div
+                class="relative w-40 h-40 md:w-48 md:h-48 bg-white rounded-full p-3 border-4 border-amber-400 shadow-lg"
+              >
+                {
+                  championTeam && (
+                    <img
+                      src={championTeam.logo}
+                      alt={`Logo de ${championTeam.name}`}
+                      class="w-full h-full object-contain rounded-full"
+                    />
+                  )
+                }
+              </div>
+
+              <!-- Insignia de campeón -->
+              <div
+                class="absolute -top-2 -right-2 w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center shadow-lg border-2 border-white"
+              >
+                <span class="text-blue-900 font-bold text-xl">1°</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado derecho: Información detallada -->
+          <div class="flex-1">
+            <div class="text-center md:text-left">
+              <h3 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                {championTeam?.name}
+              </h3>
+              <p class="text-amber-300 text-lg mb-6 font-medium">
+                Campeón de la Liga Portales 2025
+              </p>
+
+              <!-- Estadísticas en formato de tarjetas -->
+              <div class="grid grid-cols-3 gap-4 mb-6">
+                <div
+                  class="bg-blue-800/50 rounded-lg p-4 text-center border border-blue-700/50"
+                >
+                  <div class="text-3xl font-bold text-amber-400 mb-1">
+                    {championStanding?.won || 0}
+                  </div>
+                  <div class="text-xs text-blue-200 uppercase tracking-wider">
+                    Partidos ganados
+                  </div>
+                </div>
+                <div
+                  class="bg-blue-800/50 rounded-lg p-4 text-center border border-blue-700/50"
+                >
+                  <div class="text-3xl font-bold text-amber-400 mb-1">
+                    {championTeam?.stats?.goalsFor}
+                  </div>
+                  <div class="text-xs text-blue-200 uppercase tracking-wider">
+                    Goles a favor
+                  </div>
+                </div>
+                <div
+                  class="bg-blue-800/50 rounded-lg p-4 text-center border border-blue-700/50"
+                >
+                  <div class="text-3xl font-bold text-amber-400 mb-1">
+                    {championTeam?.stats?.goalsAgainst}
+                  </div>
+                  <div class="text-xs text-blue-200 uppercase tracking-wider">
+                    Goles en contra
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cita o lema del equipo -->
+              <blockquote
+                class="italic text-blue-200 text-sm border-l-4 border-amber-400 pl-4 mb-6"
+              >
+                "La excelencia no es un acto, sino un hábito. Somos campeones
+                dentro y fuera de la cancha."
+              </blockquote>
+
+              <!-- Botón de acción -->
+              {
+                championTeam && (
+                  <div class="text-center md:text-left">
+                    <a
+                      href={`/equipos/${championTeam.id}`}
+                      class="inline-block px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-blue-900 font-bold rounded-lg transition-all duration-300 hover:from-amber-400 hover:to-yellow-400 hover:shadow-lg hover:shadow-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-blue-900"
+                    >
+                      Ver perfil completo del equipo
+                    </a>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reconocimientos adicionales -->
+    <div class="mt-8 text-center">
+      <p class="text-blue-300 text-sm">
+        Felicitaciones a todos los jugadores, cuerpo técnico y aficionados por
+        este logro.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Aseguramos que los textos sean legibles */
+  section {
+    color-scheme: dark;
+  }
+</style>

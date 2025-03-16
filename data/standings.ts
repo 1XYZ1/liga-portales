@@ -45,11 +45,11 @@ export const standings: TeamStanding[] = [
   {
     teamId: 3, // BROSKY F.C
     gamesPlayed: 5,
-    won: 2,
+    won: 3,
     drawn: 2,
     lost: 1,
-    goalsFor: 18,
-    goalsAgainst: 14,
+    goalsFor: 22,
+    goalsAgainst: 16,
     points: 8,
   },
   {
